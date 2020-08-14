@@ -68,7 +68,8 @@ $primary-contrast: #fff;
 $accent: #ccc;
 $text: #000;
 $alert: #c00;
-$brown: #451400;
+$blue: #032f74;
+$light-blue: #158ae6;
 
 //Units
 $line-height: 1.25;
@@ -275,7 +276,7 @@ a {
 	text-decoration: none;
 
 	&:hover, &:focus {
-	    text-decoration: underline;
+	    // text-decoration: underline;
 	}
 
 	&.access-link {
@@ -363,6 +364,20 @@ a.access-link {
         width: 100%;
         height: 100%;
     }
+}
+
+.sr-only {
+	border: 0 !important;
+	clip: rect(1px, 1px, 1px, 1px) !important; /* 1 */
+	-webkit-clip-path: inset(50%) !important;
+		clip-path: inset(50%) !important;  /* 2 */
+	height: 1px !important;
+	margin: -1px !important;
+	overflow: hidden !important;
+	padding: 0 !important;
+	position: absolute !important;
+	width: 1px !important;
+	white-space: nowrap !important;
 }
 
 /*! =================================================================
@@ -578,6 +593,7 @@ header {
 
   .navigation {
 		position: absolute;
+		z-index: 999999;
 		background: #fff;
 		top: 81px;
 		width: 100%;
@@ -664,6 +680,64 @@ header {
 Banner
 ================================================================= */
 
+.banner {
+	position: relative;
+
+	.tagline-wrap {
+		position: absolute;
+		bottom: 0;
+		width: 100%;
+		@include breakpoint(1300px) {
+			width: 50%;
+			bottom: 50%;
+			right: 0;
+			transform: translateX(0) translateY(-50%);
+
+
+		}
+	}
+
+	&__wrap {
+		position: relative;
+	}
+
+
+
+	&__tagline {
+
+		color: #fff;
+		display: block;
+		background: #01bdf4;
+		background: -moz-linear-gradient(left, rgba(1, 189, 244, .8) 0%, rgba(0, 73, 136,.8) 100%);
+		background: -webkit-linear-gradient(left, rgba(1, 189, 244, .8) 0%, rgba(0, 73, 136,.8) 100%);
+		background: linear-gradient(to left, rgba(1, 189, 244, .8) 0%, rgba(0, 73, 136,.8) 100%);
+		text-align: center;
+		font-size: 22px;
+		padding: 10px;
+		@include breakpoint(1300px) {
+			position: relative;
+			max-width: 670px;
+			text-align: left;
+			font-size: 40px;
+			padding: 20px 0 20px 70px;
+			&:after {
+				content: "";
+				height: 90px;
+				width: 9999em;
+				background: rgba(1, 189, 244, .8);
+				display: block;
+				position: absolute;
+				left: 100%;
+				top: 0;
+			}
+		}
+	}
+
+
+}
+
+
+
 .banner-slider {
 	position: relative;
 	img {
@@ -673,7 +747,74 @@ Banner
 	.slick-arrow {
 		position: absolute;
 		top: 0;
+		width: 36px;
+		height: 36px;
+		background-size: cover;
+		@include breakpoint($end-small) {
+			width: 90px;
+			height: 90px;
+		}
 	}
+
+	.slick-prev {
+		background: url("../v2_0/img/slick-prev.png") no-repeat;
+		background-size: cover;
+		top:44%;
+		left:0;
+		transform: translateX(0) translateY(-50%);
+		z-index: 99;
+		font-size: 0;
+		@include breakpoint($end-small) {
+			top: 53%;
+		}
+	}
+
+	.slick-next {
+		background: url("../v2_0/img/slick-next.png") no-repeat;
+		background-size: cover;
+		top:44%;
+		right:0;
+		transform: translateX(0) translateY(-50%);
+		z-index: 99;
+		font-size: 0;
+		@include breakpoint($end-small) {
+			top: 53%;
+		}
+	}
+
+	.slick-dots {
+		display: flex;
+		justify-content: center;
+		margin: 0;
+		padding: 1rem 0;
+		list-style-type: none;
+		position: absolute;
+		bottom: 0;
+	  left:50%;
+	  transform: translateX(-50%) translateY(-50%);
+
+		li {
+			margin: 0 0.25rem;
+		}
+
+		button {
+			display: block;
+			width: 1rem;
+			height: 1rem;
+			padding: 0;
+			border: none;
+			border-radius: 100%;
+			background-color: #cfcfce;
+			text-indent: -9999px;
+			opacity: .3;
+		}
+
+		li.slick-active button {
+			background-color: #cfcfce;
+			opacity: 1;
+		}
+
+}
 }
 
 /* =================================================================
@@ -840,15 +981,72 @@ site selector
 /* =================================================================
 search form
 ================================================================= */
+
+.search-wrap {
+	background: $blue;
+	padding: 30px 20px;
+	@include breakpoint($end-small) {
+		width: 100%;
+		max-width: 1140px;
+		margin: 0 auto;
+	}
+	@include breakpoint(1300px) {
+		position: absolute;
+		bottom: 0;
+		background: rgba(3, 47, 116, .8);
+		bottom: 0;
+    left:50%;
+    transform: translateX(-50%) translateY(0);
+	}
+
+	> h2 {
+		color: #fff;
+		text-align: center;
+		font-size: 25px;
+		@include breakpoint($end-small) {
+			font-size: 42px;
+			margin-bottom: 20px;
+		}
+	}
+}
+
+.search-toggle {
+	background: $light-blue;
+	display: block;
+	text-align: center;
+	width: 142px;
+	padding: 10px;
+	color: #fff;
+	border-radius: 6px;
+	font-size: 15px;
+	font-weight: $weight-bold;
+	margin: 20px auto 0;
+	position: relative;
+
+	&:after {
+		content: " ";
+		display: inline-block;
+		background: url("../v2_0/img/white-arrow.png") no-repeat;
+		height: 14px;
+    width: 12px;
+    transform: rotate(90deg);
+		position: absolute;
+		right: 23px;
+		top: 13px;
+	}
+}
+
+
 .search-form {
     clear: both;
 
     p {
-        margin: 0 1em .7em 0;
+        margin: 0 0 15px 0;
 
         @include breakpoint($end-small) {
             -webkit-flex: auto;
             flex: auto;
+						margin: 0 10px 0 0;
         }
     }
 
@@ -872,9 +1070,21 @@ search form
 
     input, select {
         @extend %borderbox;
-        border: 1px solid $accent;
+				border: none;
         border-radius: 2px;
         width: 100%;
+				-webkit-appearance: none;
+				padding: 12px 10px;
+				border-radius: 6px;
+				font-size: 14px;
+				color: #707070;
+				background: #fff;
+				@include breakpoint($end-small) {
+					padding: 20px 10px;
+					font-size: 16px;
+				}
+
+
 
         &[type="radio"] {
             width: auto;
@@ -890,7 +1100,7 @@ search form
     }
 
     input {
-        padding: 3px;
+
     }
 
     &[data-use-location-pin="true"] {
@@ -922,16 +1132,39 @@ search form
         }
     }
 
-    select {
-        padding: 2px;
-    }
+
 
     button {
+			background: #158ae6;
+			display: block;
+			text-align: center;
+			width: 180px;
+			padding: 10px;
+			color: #fff;
+			border-radius: 6px;
+			font-size: 15px;
+			font-weight: 700;
+			margin: 55px auto 0;
+			position: relative;
         @include breakpoint($end-small) {
-            position: relative;
-            top: 50%;
-            transform: translateY(-50%);
+          	padding: 21px 10px 21px 0px;
+						margin: 0;
         }
+
+				&:after {
+					content: " ";
+			    display: inline-block;
+			    background: url(../v2_0/img/white-arrow.png) no-repeat;
+					background-size: contain;
+			    height: 14px;
+			    width: 12px;
+			    position: absolute;
+			    right: 23px;
+			    top: 11px;
+					@include breakpoint($end-small) {
+	          	top: 23px;
+	        }
+				}
     }
 
     .search-location-error {
@@ -941,6 +1174,11 @@ search form
     }
 
     .search-form-fields {
+			margin-top: 15px;
+			max-width: 950px;
+			@include breakpoint($end-small) {
+				margin: 0 auto;
+			}
         .js & {
             display: none;
 
@@ -995,113 +1233,7 @@ auto complete keyword popup
     }
 }
 
-/* =================================================================
-advanced search form
-================================================================= */
-.advanced-search-form {
-    clear: both;
 
-    p {
-        margin: 0 0 1em 0;
-
-        @include breakpoint($end-small) {
-            margin: 0 .5em 1em 0;
-            float: left;
-            width: 14%;
-
-            &:nth-child(1) {
-                width: 18%;
-                margin-right: 1em;
-            }
-        }
-    }
-
-    label {
-        display: block;
-    }
-
-    input, select {
-        @extend %borderbox;
-        border: 1px solid $accent;
-        border-radius: 2px;
-        width: 100%;
-    }
-
-    input {
-        padding: 3px;
-    }
-
-    button {
-        margin: 0 .4em 1em 0;
-    }
-
-    select {
-        padding: 2px;
-    }
-
-    section {
-        margin: 0 0 1em 0;
-
-        @include breakpoint($end-small) {
-            width: 18%;
-            margin: 0 .5em 1em 0;
-        }
-
-        ul {
-            list-style: none;
-            height: 100px;
-            overflow-y: scroll;
-            margin: 0;
-
-            li {
-                input[type="checkbox"] {
-                    clear: right;
-                    float: right;
-                    width: inherit;
-
-                    &:checked + label {
-                        background: $primary;
-                        color: #fff;
-                    }
-
-                    &:focus:checked + label, &:hover:checked + label {
-                        background: lighten($primary, 8%);
-                    }
-                }
-
-                label {
-                    cursor: pointer;
-                }
-            }
-        }
-    }
-
-    .advanced-search-form-fields {
-        .js & {
-            display: none;
-
-            @include breakpoint($end-small) {
-                display: -ms-flex;
-                display: -webkit-flex;
-                display: flex;
-                flex-wrap: wrap;
-                @include flex-property(align-items, flex-end);
-            }
-        }
-    }
-
-    .advanced-search-toggle {
-        display: none;
-
-        .js & {
-            display: block;
-
-            @include breakpoint($end-small) {
-                display: none;
-            }
-        }
-    }
-}
 
 /* mindreader autocomplete search box ======================================================= */
 .mindreader-status {
