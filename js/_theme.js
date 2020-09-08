@@ -21,21 +21,25 @@ global variables
 search form panel
 ========================================================================== */
     //make search form expandable only on small screens
-    function searchFormExpandable() {
-        if (mq.end.matches) {
-            $(selectors.searchForm).expandable('revive');
-            $(selectors.advancedSearchForm).expandable('revive');
-        }
-        else {
-            $(selectors.searchForm).expandable('kill');
-            $(selectors.searchForm).children('div').removeAttr('style');
-            $(selectors.advancedSearchForm).expandable('kill');
-            $(selectors.advancedSearchForm).children('div').removeAttr('style');
-        }
-        return;
-    }
-    searchFormExpandable();
-    mq.end.addListener(searchFormExpandable);
+    // function searchFormExpandable() {
+    //     if (mq.end.matches) {
+    //         $(selectors.searchForm).expandable('revive');
+    //         $(selectors.advancedSearchForm).expandable('revive');
+    //     }
+    //     else {
+    //         $(selectors.searchForm).expandable('kill');
+    //         $(selectors.searchForm).children('div').removeAttr('style');
+    //         $(selectors.advancedSearchForm).expandable('kill');
+    //         $(selectors.advancedSearchForm).children('div').removeAttr('style');
+    //     }
+    //     return;
+    // }
+    // searchFormExpandable();
+    // mq.end.addListener(searchFormExpandable);
+
+    $('.search-toggle-btn').click(function(){
+     $(".search-toggle-list").slideToggle("fast");
+    });
 
 /* =========================================================================
 slideout filters for search results on small screens
@@ -46,7 +50,7 @@ slideout filters for search results on small screens
         pageWrapId: 'page',
         filterType: 'search',
         openToggle: 'Filter',
-        closeToggle: 'Close'
+        closeToggle: 'Close Filter'
     });
 
 /* =========================================================================
@@ -67,7 +71,7 @@ social share open/close toggle
             }
             return;
         });
-})();
+
 
 /* =========================================================================
 Nav Toggle
@@ -78,9 +82,66 @@ $('.js-nav-button').click(function(){
 });
 
 /* =========================================================================
+GLobal toggle
+========================================================================== */
+
+$('.js-language-btn').click(function(){
+ $(".js-language-toggle").slideToggle("fast");
+ $(".js-language-btn").toggleClass("open");
+});
+
+/* =========================================================================
 Footer Toggle
 ========================================================================== */
 
 $('.js-footer-btn').click(function(){
  $(this).next('.footer__list--secondary').slideToggle("fast");
 });
+
+/* =========================================================================
+Job Alert Toggle
+========================================================================== */
+$('.btnJobAlertToggle').click(function() {
+    $(' .job-alert-toggle').slideToggle("fast");
+    var text = $(this).text() == 'Sign Up' ? 'Close' : 'Sign Up';
+    $(this).text(text);
+    $(this).toggleClass('act');
+});
+
+/* =========================================================================
+Sticky
+========================================================================== */
+
+var $stickyNav = $('.navigation');
+
+if ($stickyNav.length) {
+    var	stickySearchTop = $stickyNav.offset().top;
+}
+
+function sticky(){
+    var scrollTop = $(window).scrollTop();
+
+    if (scrollTop > stickySearchTop) {
+        $stickyNav.addClass('sticky');
+    } else {
+        $stickyNav.removeClass('sticky');
+    }
+}
+
+sticky();
+
+$(window).scroll(function() {
+	sticky();
+});
+
+
+
+
+
+
+
+
+
+
+// End doc ready
+})();

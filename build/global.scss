@@ -28,31 +28,73 @@ $weight-bold: 700; // Bold (just use 'bold' instead of a number)
 $weight-extra-bold: 800; // Extra Bold (Ultra Bold)
 $weight-black: 900; // Black (Heavy)
 
-@font-face {
-	font-family: 'interstate';
-  src: url('https://clientfiles.tmpwebeng.com/citi/font/InterstateLight.ttf');
-	src: url('https://clientfiles.tmpwebeng.com/citi/font/InterstateLight.eot?#iefix') format('embedded-opentype'),
-		url('https://clientfiles.tmpwebeng.com/citi/font/InterstateLight.woff') format('woff'),
-		url('https:/clientfiles.tmpwebeng.com/citi/font/InterstateLight.ttf')  format('truetype'),
-		url('https://clientfiles.tmpwebeng.com/citi/font/InterstateLight.svg#svgInterstateLight') format('svg');
+// @font-face {
+// 	font-family: 'interstate';
+//   src: url('https://clientfiles.tmpwebeng.com/citi/font/InterstateLight.ttf');
+// 	src: url('https://clientfiles.tmpwebeng.com/citi/font/InterstateLight.eot?#iefix') format('embedded-opentype'),
+// 		url('https://clientfiles.tmpwebeng.com/citi/font/InterstateLight.woff') format('woff'),
+// 		url('https:/clientfiles.tmpwebeng.com/citi/font/InterstateLight.ttf')  format('truetype'),
+// 		url('https://clientfiles.tmpwebeng.com/citi/font/InterstateLight.svg#svgInterstateLight') format('svg');
+//
+// }
+// @font-face {
+// 	font-family: 'interstate';
+// 	src: url('https://clientfiles.tmpwebeng.com/citi/font/Interstate_exLight.ttf');
+// 	src: url('https://clientfiles.tmpwebeng.com/citi/font/Interstate_exLight.eot?#iefix') format('embedded-opentype'),
+// 		url('https://clientfiles.tmpwebeng.com/citi/font/Interstate_exLight.woff') format('woff'),
+// 		url('https://clientfiles.tmpwebeng.com/citi/font/Interstate_exLight.ttf')  format('truetype'),
+// 		url('https://clientfiles.tmpwebeng.com/citi/font/Interstate_exLight.svg#svgInterstateExLight') format('svg');
+//     font-weight: $weight-extra-thin;
+// }
+// @font-face {
+// 	font-family: 'interstate';
+// 	src: url('https://clientfiles.tmpwebeng.com/citi/font/Interstate_exLight.otf');
+// 	src: url('https://clientfiles.tmpwebeng.com/citi/font/Interstate-Bold.woff') format('woff');
+//   font-weight: $weight-bold;
+// }
 
-}
+
+// Interstate Thin
 @font-face {
-	font-family: 'interstate';
-	src: url('https://clientfiles.tmpwebeng.com/citi/font/Interstate_exLight.ttf');
-	src: url('https://clientfiles.tmpwebeng.com/citi/font/Interstate_exLight.eot?#iefix') format('embedded-opentype'),
-		url('https://clientfiles.tmpwebeng.com/citi/font/Interstate_exLight.woff') format('woff'),
-		url('https://clientfiles.tmpwebeng.com/citi/font/Interstate_exLight.ttf')  format('truetype'),
-		url('https://clientfiles.tmpwebeng.com/citi/font/Interstate_exLight.svg#svgInterstateExLight') format('svg');
-    font-weight: $weight-extra-thin;
-}
-@font-face {
-	font-family: 'interstate';
-	src: url('https://clientfiles.tmpwebeng.com/citi/font/Interstate_exLight.otf');
-	src: url('https://clientfiles.tmpwebeng.com/citi/font/Interstate-Bold.woff') format('woff');
-  font-weight: $weight-bold;
+font-family: interstate, sans-serif;
+font-weight: $weight-extra-thin;
+font-style: normal;
 }
 
+// Interstate Extra Light
+@font-face {
+font-family: interstate, sans-serif;
+font-weight: $weight-light;
+font-style: normal;
+}
+
+// Interstate Light
+@font-face {
+font-family: interstate, sans-serif;
+font-weight: $weight-normal;
+font-style: normal;
+}
+
+// Interstate Regular
+@font-face {
+font-family: interstate, sans-serif;
+font-weight: $weight-medium;
+font-style: normal;
+}
+
+// Interstate Bold
+@font-face {
+font-family: interstate, sans-serif;
+font-weight: $weight-bold;
+font-style: normal;
+}
+
+// Interstate Black
+@font-face {
+font-family: interstate, sans-serif;
+font-weight: $weight-extra-bold;
+font-style: normal;
+}
 
 
 /* =================================================================
@@ -66,10 +108,13 @@ $max-width: 1000px;
 $primary: #000;
 $primary-contrast: #fff;
 $accent: #ccc;
-$text: #000;
+$text: #222;
 $alert: #c00;
 $blue: #032f74;
 $light-blue: #158ae6;
+$headline-blue: #005aa1;
+$hover-blue: #002A54;
+
 
 //Units
 $line-height: 1.25;
@@ -137,6 +182,32 @@ Mixins
 @function px($target) {
     @return #{$target/16.0}rem;
 }
+
+
+@function svg-color-replace($string, $search: '#', $replace: '%23') {
+    $index: str-index($string, $search);
+
+    @if $index {
+        @return str-slice($string, 1, $index - 1) + $replace + svg-color-replace(str-slice($string, $index + str-length($search)), $search, $replace);
+    }
+    @return $string;
+}
+
+@mixin icon-employee ($icon-color:#000) {
+	$icon-color: svg-color-replace("#{$icon-color}"); //this function changes the color to svg compatible format
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' viewBox='0 0 24 17.5'%3E%3Cdefs%3E%3Cpath id='a' d='M0 0h24v17.5H0z'/%3E%3C/defs%3E%3CclipPath id='b'%3E%3Cuse xlink:href='%23a' overflow='visible'/%3E%3C/clipPath%3E%3Cpath d='M4.3 6.5C3.6 6.5 3 7 3 7.7S3.5 9 4.2 9s1.3-.6 1.3-1.2c0-.7-.6-1.3-1.2-1.3m0-1c1.2 0 2.2 1 2.2 2.2S5.5 10 4.3 10C3 10 2 9 2 7.7c0-1.2 1-2.2 2.3-2.2zM12 1C9.8 1 8 2.8 8 5s1.8 4 4 4 4-1.8 4-4-1.8-4-4-4m0-1c2.8 0 5 2.2 5 5s-2.2 5-5 5-5-2.2-5-5 2.2-5 5-5m7.8 6.5c-.7 0-1.3.6-1.3 1.2 0 .7.5 1.3 1.2 1.3S21 8.4 21 7.8c0-.7-.6-1.3-1.2-1.3zm0-1c1.2 0 2.2 1 2.2 2.3C22 9 21 10 19.7 10c-1.2 0-2.2-1-2.2-2.2 0-1.3 1-2.3 2.3-2.3zm4.1 8.2c-.8-1.7-2.5-2.7-4.4-2.7-1.5-.1-2.9.6-3.8 1.7-1.2-.4-2.4-.7-3.7-.7-1.3 0-2.5.3-3.7.8-.9-1.2-2.3-1.9-3.8-1.8-1.9 0-3.6 1-4.4 2.7-.1.3 0 .6.2.7.2.1.5 0 .7-.2.6-1.4 2-2.2 3.5-2.2 1.1-.1 2.2.4 2.9 1.2-1.4.9-2.5 2-3.3 3.4-.2.4-.1.7.1.8.2.1.5.1.7-.2 1.7-2.8 4.1-4.3 7.1-4.3 3.1 0 6 1.6 7.6 4.3.1.2.5.3.7.2.2-.1.3-.4.2-.7-.9-1.5-2.2-2.7-3.7-3.6.7-.8 1.8-1.2 2.8-1.2 1.5-.1 2.9.8 3.5 2.2.1.2.4.3.7.2.2 0 .3-.3.1-.6' clip-path='url(%23b)' fill-rule='evenodd' clip-rule='evenodd' fill='#{$icon-color}'/%3E%3C/svg%3E");
+}
+
+@mixin icon-globe ($icon-color:#000) {
+	$icon-color: svg-color-replace("#{$icon-color}"); //this function changes the color to svg compatible format
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' viewBox='0 0 24 24'%3E%3Cdefs%3E%3Cpath id='a' d='M0 0h24v24H0z'/%3E%3C/defs%3E%3CclipPath id='b'%3E%3Cuse xlink:href='%23a' overflow='visible'/%3E%3C/clipPath%3E%3Cpath d='M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.6 0 12 0m9.2 18c-1.6-.4-3.3-.7-4.9-.9.3-1.4.4-3 .5-4.6H23c-.1 2-.8 3.9-1.8 5.5M12 23c-1.2 0-2.4-2-3.1-5 2.1-.2 4.2-.2 6.2 0-.7 3-1.9 5-3.1 5m-3.3-6c-.3-1.4-.4-2.9-.5-4.5h7.6c0 1.6-.2 3.2-.5 4.5-2.2-.2-4.4-.2-6.6 0M1 12.5h6.2c0 1.6.2 3.2.5 4.6-1.7.2-3.3.5-4.9.9-1.1-1.6-1.7-3.5-1.8-5.5M2.8 6c1.6.4 3.3.7 4.9.9-.3 1.4-.4 3-.4 4.6H1c.1-2 .7-3.9 1.8-5.5M12 1c1.2 0 2.4 2 3.1 5-2.1.2-4.1.2-6.2 0 .7-3 1.9-5 3.1-5m3.3 6c.3 1.4.4 2.9.4 4.5H8.2c0-1.6.2-3.1.4-4.5 2.3.2 4.5.2 6.7 0m1.5 4.5c0-1.6-.2-3.2-.4-4.6 1.6-.2 3.2-.5 4.9-.9 1 1.6 1.7 3.5 1.8 5.5h-6.3zm3.8-6.4c-1.5.4-3 .6-4.4.8-.5-2-1.2-3.7-2-4.7 2.5.5 4.8 1.9 6.4 3.9M9.9 1.2c-.9 1-1.6 2.7-2.1 4.7-1.4-.1-2.9-.4-4.4-.8 1.6-2 3.9-3.4 6.5-3.9M3.4 18.9c1.5-.3 3-.6 4.4-.8.5 2 1.2 3.7 2 4.7-2.5-.5-4.8-1.9-6.4-3.9m10.7 3.9c.9-1 1.6-2.7 2-4.7 1.5.2 2.9.4 4.4.8-1.5 2-3.8 3.4-6.4 3.9' clip-path='url(%23b)' fill-rule='evenodd' clip-rule='evenodd' fill='#{$icon-color}'/%3E%3C/svg%3E");
+}
+
+@mixin icon-hands ($icon-color:#000) {
+	$icon-color: svg-color-replace("#{$icon-color}"); //this function changes the color to svg compatible format
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 291.1 204.5'%3E%3Cpath d='M287.9 41.5L263.1 9.2c-.1-.1-.2-.3-.4-.4C257 2.9 251-.1 244.7 0c-7.4.1-12.3 4.6-13.7 6l-16 12.6s-.1.1-.2.1c-1.5 1.2-14.8 11.7-30.1-3.6-15.6-15.6-28.7-11.2-41-2.8-19.3-15-33.3-7.9-45.7-1.7-10.9 5.5-20.3 10.3-34.4 2.7-2.1-1.1-3.9-2.2-5.6-3.1-6.6-3.7-11.3-6.5-17.3-4-4.8 2-9.4 7.1-18.6 17.7-2 2.3-3.8 4.4-5.6 6.3C.7 47.9-8.8 58.6 11.9 79.3l15.8 15.8-13.6 13.6c-8 8-8 20.9 0 28.9 2.7 2.7 6.1 4.6 9.8 5.4-5.9 8-5.3 19.3 2 26.6 4 4 9.2 6 14.4 6 4.6 0 9.1-1.5 12.8-4.5.6 4.3 2.6 8.2 5.7 11.3 3.9 3.9 9 6 14.4 6 3 0 5.9-.7 8.5-1.9.7 4 2.6 7.9 5.7 11 3.9 3.9 9 6 14.4 6 5.5 0 10.6-2.1 14.4-6l10.9-10.9 11.9 11.9c4 4 9.2 6 14.4 6 5.2 0 10.5-2 14.4-6 2.7-2.7 4.5-6 5.4-9.5l4.6 4.6c3.9 3.9 9 6 14.4 6 5.5 0 10.6-2.1 14.4-6 3.9-3.9 5.9-9.1 6-14.2 2 .6 4.1 1 6.1 1 5.2 0 10.5-2 14.4-6 6.2-6.2 7.5-15.4 4.1-22.9 4.1-.7 8-2.6 11-5.7 8-8 8-20.9 0-28.9l-4.1-4.1c7.7-8.1 26.7-28.1 37.4-39.8 16.6-17.8 6.8-30.9 6.4-31.5zM21.2 116l25.5-25.5c2-2 4.7-3 7.4-3s5.3 1 7.4 3c4.1 4.1 4.1 10.7 0 14.7L36 130.7c-4.1 4.1-10.7 4.1-14.7 0-4.2-4.1-4.2-10.7-.1-14.7zm19.2 49.7c-2.8 0-5.4-1.1-7.4-3.1s-3.1-4.6-3.1-7.4 1.1-5.4 3.1-7.4l35.6-35.6c2-2 4.7-3 7.4-3s5.3 1 7.4 3c2 2 3.1 4.6 3.1 7.4s-1.1 5.4-3.1 7.4l-35.6 35.6c-2 2.1-4.7 3.1-7.4 3.1zm25.6 9.8c-4.1-4.1-4.1-10.7 0-14.7l25.5-25.5c2-2 4.6-3.1 7.4-3.1s5.4 1.1 7.4 3.1c4.1 4.1 4.1 10.7 0 14.7l-25.5 25.5c-4.1 4-10.7 4-14.8 0zm43.3 15.1c-4.1 4.1-10.7 4.1-14.7 0-4.1-4.1-4.1-10.7 0-14.7l18.8-18.8c2-2 4.6-3.1 7.4-3.1s5.4 1.1 7.4 3.1c4.1 4.1 4.1 10.7 0 14.7l-18.9 18.8zm132.1-51.8c-2 2-4.6 3.1-7.4 3.1s-5.4-1.1-7.4-3.1l-34.9-34.9c-2-2-5.1-2-7.1 0s-2 5.1 0 7.1l41.7 41.7c4.1 4.1 4.1 10.7 0 14.7-4.1 4.1-10.7 4.1-14.7 0l-37.5-37.5c-2-2-5.1-2-7.1 0-.2.2-.3.4-.5.6s-.4.3-.6.5c-2 2-2 5.1 0 7.1l33.9 33.9c4.1 4.1 4.1 10.7 0 14.7-4.1 4.1-10.7 4.1-14.7 0l-32.2-32.2c-2-2-5.1-2-7.1 0s-2 5.1 0 7.1l15.3 15.3c4.1 4.1 4.1 10.7 0 14.7-4.1 4.1-10.7 4.1-14.7 0l-11.9-11.9.8-.8c3.9-3.9 6-9 6-14.4s-2.1-10.6-6-14.4c-3.9-3.9-9-6-14.4-6-.5 0-1 0-1.5.1.4-5.7-1.5-11.6-5.9-15.9-3.9-3.9-9-6-14.4-6-.9 0-1.8.1-2.7.2.1-.9.2-1.8.2-2.7 0-5.5-2.1-10.6-6-14.4-4.4-4.4-10.3-6.3-16-5.9.4-5.7-1.5-11.6-5.9-16-8-8-20.9-8-28.9 0l-4.9 4.9-15.8-15.8c-14-14-10.8-17.7 5-35.4 1.8-2 3.7-4.1 5.7-6.4 7.5-8.6 12.2-13.9 14.9-15 1.3-.5 2.9.2 8.5 3.4 1.7 1 3.6 2 5.8 3.2 18.7 10.1 32.6 3 43.7-2.6 11.3-5.7 19.8-10 32.8-1-.6.5-1.2.9-1.7 1.4-2.3 1.8-4.7 3.7-7.1 5.5-18 13.5-15.4 28.9-11.4 35.1.6 1 5.6 8.5 14.5 9.6 7 .9 14.1-2.3 21.3-9.4 4.1-4.1 8.3-6.1 12.9-6 8.9.1 16.2 7.7 16.3 7.7l.1.1 53.7 53.7.1.1 7.5 7.5c3.8 4 3.8 10.6-.3 14.7zm32.9-72.5c-10.6 11.6-29.3 31.3-37 39.5l-50-50c-.9-1-10.6-10.6-23.3-10.8-7.3-.1-14.2 2.9-20.2 8.9-3.3 3.3-8.2 7.1-12.9 6.6-4.5-.5-7.3-4.9-7.3-5-.6-1.1-5.8-10.8 8.9-21.8 2.6-1.9 5-3.8 7.3-5.7 16.8-13.3 24.8-18.6 37.8-5.6 8.5 8.5 16.9 11.1 24 11.1 10.5 0 18.3-5.8 19.6-6.8l16.3-12.8.6-.6s2.9-3 6.9-3.1h.1c3.2 0 6.7 1.9 10.2 5.5l24.6 32c.1 0 5 7-5.6 18.6z' fill='#{$icon-color}'/%3E%3C/svg%3E");
+}
+
 
 /* =================================================================
 animations
@@ -330,7 +401,7 @@ input[type="search"] {
     margin: 0 auto;
 }
 
-b, strong {
+ strong {
     font-weight: bold !important;
 }
 
@@ -380,6 +451,52 @@ a.access-link {
 	white-space: nowrap !important;
 }
 
+
+
+.light-blue-button {
+    display: block;
+    text-align: center;
+    width: 142px;
+    padding: 10px;
+    color: #fff;
+    border-radius: 6px;
+    font-size: 15px;
+    font-weight: 500;
+    margin: 20px auto 0;
+    position: relative;
+		background: $light-blue;
+		border: 1px solid $light-blue;
+		transition: .3s;
+
+		&:hover, &:focus {
+			background: $hover-blue;
+			transition: .3s;
+      border: 1px solid $hover-blue;
+		}
+}
+
+.blue-button {
+    display: block;
+    text-align: center;
+    width: 142px;
+    padding: 10px;
+    color: #fff;
+    border-radius: 6px;
+    font-size: 15px;
+    font-weight: 500;
+    margin: 20px auto 0;
+    position: relative;
+		background: $headline-blue;
+		border: 1px solid $headline-blue;
+		transition: .3s;
+
+		&:hover, &:focus {
+			background: $hover-blue;
+			transition: .3s;
+      border: 1px solid $hover-blue;
+		}
+}
+
 /*! =================================================================
 Helpers
 ================================================================= */
@@ -424,51 +541,38 @@ Helpers
 Structure
 ================================================================= */
 
-#page {
-
-}
+#page {}
 
 #content {
-    overflow: visible;
-    width: 100%;
+  overflow: visible;
+  width: 100%;
 }
 
 main {
-    overflow: visible;
-    width: 100%;
-    @include clearfix;
-    margin: 0 auto;
+  overflow: visible;
+  width: 100%;
+  @include clearfix;
+  margin: 0 auto;
 }
 
 .main {
-    margin: 0 0;
-
-    @include breakpoint($end-small) {
-        width: 61%;
-        float: left;
-        margin: 0;
-    }
+  margin: 0;
+  @include breakpoint($end-small) {
+    width: 61%;
+    float: left;
+    margin: 0;
+  }
 }
-
-aside {
-    margin-bottom: 20px;
-
-    @include breakpoint($end-small) {
-        width: 33%;
-        float: right;
-
-        #job & {
-            width: 35%;
-        }
-    }
-}
-
 
 .max-width-wrapper {
-	max-width: 1180px;
-	margin: 0 auto;
-}
+  max-width: 1180px;
+  margin: 0 auto;
 
+  &.gutter {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+}
 
 
 /* =================================================================
@@ -553,6 +657,7 @@ header {
 	    align-items: center;
 			max-width: 1180px;
 			margin: 0 auto;
+      position: relative;
 
 			li {
 				display: flex;
@@ -560,10 +665,43 @@ header {
 				a {
 					color: #fff;
 					font-size: 12px;
-					font-weight: $weight-bold;
+					font-weight: $weight-medium;
 				}
 			}
 		}
+
+    .language-btn {
+
+      &:after {
+        content: " ";
+        display: inline-block;
+        border: solid #fff;
+        border-width: 0 3px 3px 0;
+        border-radius: 2px;
+        display: inline-block;
+        padding: 2px;
+        transform: rotate(45deg);
+        -webkit-transform: rotate(45deg);
+        margin-left: 5px;
+        margin-bottom: 1px;
+      }
+
+      &.open {
+        &:after {
+          content: " ";
+          display: inline-block;
+          border: solid #fff;
+          border-width: 0 3px 3px 0;
+          border-radius: 2px;
+          display: inline-block;
+          padding: 2px;
+          transform: rotate(-136deg);
+          -webkit-transform: rotate(-136deg);
+          margin-left: 5px;
+          margin-bottom: 1px;
+        }
+      }
+    }
 
 
 
@@ -575,8 +713,9 @@ header {
 			overflow: visible;
 			position: absolute;
 			right: 0;
+      top: 22px;
 			z-index: 5;
-			background: #0c0c0c;
+			background: #333333;
 
 			li {
 				border-bottom: 1px solid #999;
@@ -606,6 +745,8 @@ header {
 			padding: 20px 25px;
 		}
 
+
+
     &__button {
       font-size: 0;
       width: 17px;
@@ -623,8 +764,11 @@ header {
         height: 2px;
         width: 100%;
         display: block;
-        margin-bottom: 4px;
-        transition: 0.4s;
+
+
+        &:not(:last-of-type) {
+            margin-bottom: 4px;
+        }
       }
     }
 
@@ -633,6 +777,8 @@ header {
 			@include breakpoint($end-small) {
 				border-top: none;
 				display: flex;
+				align-items: center;
+
 				max-width: 1180px;
 				margin: 0 auto;
 			}
@@ -640,6 +786,10 @@ header {
 
 		&__item {
 			text-align: center;
+
+      &:first-of-type {
+        display: none;
+      }
 
 
 			&:not(:last-of-type) {
@@ -654,19 +804,57 @@ header {
 					margin-left: auto;
 				}
 			}
+			&:first-of-type {
+				margin: 0;
+			}
+
 		}
+
+
 
 		&__link {
 			display: block;
 			padding: 8px 0;
 			font-size: 13px;
-			font-weight: $weight-bold;
+			font-weight: $weight-medium;
 			color: #222222;
 			@include breakpoint($end-small) {
 				padding: 0;
 				font-size: 14px;
 				font-weight: $weight-normal;
 			}
+		}
+
+		&.sticky {
+			position: fixed;
+			top: 0;
+			padding: 16px 25px;
+      box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.5);
+      z-index: 9999;
+      display: none !important;
+      @include breakpoint($end-small) {
+        display: block !important;
+      }
+
+
+			.navigation__logo {
+				display: block;
+				background: url("../v2_0/img/logo-2.png") no-repeat;
+				background-size: contain;
+				font-size: 0;
+				width: 43px;
+				height: 28px;
+
+
+			}
+
+			.navigation__item:first-of-type {
+				margin-right: 25px;
+				margin-top: -8px;
+        display: block;
+			}
+
+
 		}
 
 
@@ -681,140 +869,180 @@ Banner
 ================================================================= */
 
 .banner {
-	position: relative;
+  position: relative;
 
-	.tagline-wrap {
-		position: absolute;
-		bottom: 0;
-		width: 100%;
-		@include breakpoint(1300px) {
-			width: 50%;
-			bottom: 50%;
-			right: 0;
-			transform: translateX(0) translateY(-50%);
+  .tagline-wrap {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    @include breakpoint(1300px) {
+      width: 50%;
+      bottom: 50%;
+      right: 0;
+      transform: translateX(0) translateY(-50%);
+    }
+  }
 
+  &__wrap {
+    position: relative;
+  }
 
-		}
-	}
+  &__tagline {
+    color: #fff;
+    display: block;
+    background: #01bdf4;
+    background: -moz-linear-gradient(left, rgba(1, 189, 244, .8) 0%, rgba(0, 73, 136,.8) 100%);
+    background: -webkit-linear-gradient(left, rgba(1, 189, 244, .8) 0%, rgba(0, 73, 136,.8) 100%);
+    background: linear-gradient(to left, rgba(1, 189, 244, .8) 0%, rgba(0, 73, 136,.8) 100%);
+    text-align: center;
+    font-size: 22px;
+    padding: 10px;
+    @include breakpoint(1300px) {
+      position: relative;
+      max-width: 670px;
+      text-align: left;
+      font-size: 40px;
+      padding: 20px 0 20px 70px;
 
-	&__wrap {
-		position: relative;
-	}
-
-
-
-	&__tagline {
-
-		color: #fff;
-		display: block;
-		background: #01bdf4;
-		background: -moz-linear-gradient(left, rgba(1, 189, 244, .8) 0%, rgba(0, 73, 136,.8) 100%);
-		background: -webkit-linear-gradient(left, rgba(1, 189, 244, .8) 0%, rgba(0, 73, 136,.8) 100%);
-		background: linear-gradient(to left, rgba(1, 189, 244, .8) 0%, rgba(0, 73, 136,.8) 100%);
-		text-align: center;
-		font-size: 22px;
-		padding: 10px;
-		@include breakpoint(1300px) {
-			position: relative;
-			max-width: 670px;
-			text-align: left;
-			font-size: 40px;
-			padding: 20px 0 20px 70px;
-			&:after {
-				content: "";
-				height: 90px;
-				width: 9999em;
-				background: rgba(1, 189, 244, .8);
-				display: block;
-				position: absolute;
-				left: 100%;
-				top: 0;
-			}
-		}
-	}
-
-
+      &:after {
+        content: "";
+        height: 90px;
+        width: 9999em;
+        background: rgba(1, 189, 244, .8);
+        display: block;
+        position: absolute;
+        left: 100%;
+        top: 0;
+      }
+    }
+  }
 }
-
-
 
 .banner-slider {
-	position: relative;
-	img {
-		width: 100%;
-	}
+  position: relative;
 
-	.slick-arrow {
-		position: absolute;
-		top: 0;
-		width: 36px;
-		height: 36px;
-		background-size: cover;
-		@include breakpoint($end-small) {
-			width: 90px;
-			height: 90px;
-		}
-	}
+  img {
+    width: 100%;
+  }
 
-	.slick-prev {
-		background: url("../v2_0/img/slick-prev.png") no-repeat;
-		background-size: cover;
-		top:44%;
-		left:0;
-		transform: translateX(0) translateY(-50%);
-		z-index: 99;
-		font-size: 0;
-		@include breakpoint($end-small) {
-			top: 53%;
-		}
-	}
+  .slick-arrow {
+    position: absolute;
+    top: 0;
+    width: 36px;
+    height: 36px;
+    background-size: cover;
+    @include breakpoint($end-small) {
+      width: 90px;
+      height: 90px;
+    }
+  }
 
-	.slick-next {
-		background: url("../v2_0/img/slick-next.png") no-repeat;
-		background-size: cover;
-		top:44%;
-		right:0;
-		transform: translateX(0) translateY(-50%);
-		z-index: 99;
-		font-size: 0;
-		@include breakpoint($end-small) {
-			top: 53%;
-		}
-	}
+  .slick-prev {
+    background: url("../v2_0/img/slick-prev.png") no-repeat;
+    background-size: cover;
+    top: 44%;
+    left: 0;
+    transform: translateX(0) translateY(-50%);
+    z-index: 99;
+    font-size: 0;
+    @include breakpoint($end-small) {
+      top: 53%;
+    }
+  }
 
-	.slick-dots {
-		display: flex;
-		justify-content: center;
-		margin: 0;
-		padding: 1rem 0;
-		list-style-type: none;
-		position: absolute;
-		bottom: 0;
-	  left:50%;
-	  transform: translateX(-50%) translateY(-50%);
+  .slick-next {
+    background: url("../v2_0/img/slick-next.png") no-repeat;
+    background-size: cover;
+    top: 44%;
+    right: 0;
+    transform: translateX(0) translateY(-50%);
+    z-index: 99;
+    font-size: 0;
+    @include breakpoint($end-small) {
+      top: 53%;
+    }
+  }
 
-		li {
-			margin: 0 0.25rem;
-		}
+  .slick-dots {
+    display: flex;
+    justify-content: center;
+    margin: 0;
+    padding: 1rem 0;
+    list-style-type: none;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
 
-		button {
-			display: block;
-			width: 1rem;
-			height: 1rem;
-			padding: 0;
-			border: none;
-			border-radius: 100%;
-			background-color: #cfcfce;
-			text-indent: -9999px;
-			opacity: .3;
-		}
+    li {
+      margin: 0 0.25rem;
+    }
 
-		li.slick-active button {
-			background-color: #cfcfce;
-			opacity: 1;
-		}
+    button {
+      display: block;
+      width: 1rem;
+      height: 1rem;
+      padding: 0;
+      border: none;
+      border-radius: 100%;
+      background-color: #cfcfce;
+      text-indent: -9999px;
+      opacity: 0.3;
+    }
 
+    li.slick-active button {
+      background-color: #cfcfce;
+      opacity: 1;
+    }
+  }
 }
+
+.banner__img {
+  padding-top: 87%;
+  @include breakpoint(600px) {
+    padding-top: 34%;
+  }
+  @include breakpoint(1500px) {
+    padding-top: 29%;
+  }
+
+  #JobAlertVerify &,
+  #Unsubscribe &,
+  #banking-basics &,
+  #error &,
+  #ja-mgmt &,
+  #job-match &,
+  #life-at-citi &,
+  #saved-jobs &,
+  #search &,
+  #sitemap & {
+    background: url("../v2_0/img/banner-sr-sm.jpg") no-repeat;
+    background-size: cover;
+    padding-top: 87%;
+    @include breakpoint(600px) {
+      background: url("../v2_0/img/banner-sr-lg.jpg") no-repeat;
+      background-size: cover;
+      padding-top: 34%;
+    }
+    @include breakpoint(1500px) {
+      padding-top: 29%;
+    }
+  }
+
+  #advanced-job &,
+  #job & {
+    background: url("../v2_0/img/banner-jd-sm.jpg") no-repeat;
+    background-size: cover;
+    padding-top: 87%;
+    @include breakpoint(600px) {
+      background: url("../v2_0/img/banner-jd-lg.jpg") no-repeat;
+      background-size: cover;
+      padding-top: 34%;
+    }
+    @include breakpoint(1500px) {
+      padding-top: 29%;
+    }
+  }
 }
 
 /* =================================================================
@@ -923,16 +1151,25 @@ Footer
 		padding: 0;
 		}
 
+
 		&--secondary {
 				color: #fff;
 				font-size: 13px;
+
+        &:hover, &:focus {
+          text-decoration: underline;
+        }
 
 		}
 
 		&--tertiary {
 				color: #fff;
 				font-size: 13px;
-				font-weight: $weight-bold;
+				font-weight: $weight-normal;
+
+        &:hover, &:focus {
+          text-decoration: underline;
+        }
 		}
 	}
 
@@ -940,7 +1177,15 @@ Footer
 		color: #fff;
 		font-size: 13px;
 		margin-bottom: 20px;
-		font-weight: $weight-bold;
+		font-weight: $weight-normal;
+
+    a {
+      color: #fff;
+
+      &:hover, &:focus {
+        text-decoration: underline;
+      }
+    }
 	}
 
 }
@@ -987,15 +1232,16 @@ search form
 	padding: 30px 20px;
 	@include breakpoint($end-small) {
 		width: 100%;
-		max-width: 1140px;
-		margin: 0 auto;
+		padding: 23px 20px;
 	}
 	@include breakpoint(1300px) {
+    max-width: 1140px;
+    margin: 0 auto;
 		position: absolute;
 		bottom: 0;
 		background: rgba(3, 47, 116, .8);
 		bottom: 0;
-    left:50%;
+    left: 50%;
     transform: translateX(-50%) translateY(0);
 	}
 
@@ -1010,7 +1256,7 @@ search form
 	}
 }
 
-.search-toggle {
+.search-toggle-btn {
 	background: $light-blue;
 	display: block;
 	text-align: center;
@@ -1019,9 +1265,12 @@ search form
 	color: #fff;
 	border-radius: 6px;
 	font-size: 15px;
-	font-weight: $weight-bold;
+	font-weight: $weight-medium;
 	margin: 20px auto 0;
 	position: relative;
+	@include breakpoint($end-small) {
+		display: none;
+	}
 
 	&:after {
 		content: " ";
@@ -1035,6 +1284,14 @@ search form
 		top: 13px;
 	}
 }
+
+.search-toggle-list {
+		display: none;
+		position: relative;
+		@include breakpoint($end-small) {
+			display: block !important;
+		}
+	}
 
 
 .search-form {
@@ -1099,6 +1356,12 @@ search form
         }
     }
 
+    select {
+      background-image: url(../v2_0/img/select-arrow.png);
+      background-repeat: no-repeat;
+      background-position: 93% center;
+    }
+
     input {
 
     }
@@ -1139,32 +1402,37 @@ search form
 			display: block;
 			text-align: center;
 			width: 180px;
-			padding: 10px;
+      border: 1px solid #158ae6;
+			padding: 9px 10px;
 			color: #fff;
 			border-radius: 6px;
 			font-size: 15px;
-			font-weight: 700;
-			margin: 55px auto 0;
+			font-weight: $weight-medium;
+			margin: 70px auto 0;
 			position: relative;
+      transition: .3s;
         @include breakpoint($end-small) {
-          	padding: 21px 10px 21px 0px;
+          	padding: 20px 10px;
 						margin: 0;
         }
 
 				&:after {
-					content: " ";
-			    display: inline-block;
-			    background: url(../v2_0/img/white-arrow.png) no-repeat;
-					background-size: contain;
-			    height: 14px;
-			    width: 12px;
-			    position: absolute;
-			    right: 23px;
-			    top: 11px;
-					@include breakpoint($end-small) {
-	          	top: 23px;
-	        }
+          content: " ";
+          display: inline-block;
+          background: url(../v2_0/img/white-arrow.png) no-repeat;
+          background-size: contain;
+          height: 14px;
+          width: 12px;
+          position: relative;
+          margin-left: 11px;
+          top: 1px;
 				}
+
+        &:hover, &:focus {
+          transition: .3s;
+          background: transparent;
+
+        }
     }
 
     .search-location-error {
@@ -1180,7 +1448,7 @@ search form
 				margin: 0 auto;
 			}
         .js & {
-            display: none;
+            // display: none;
 
             @include breakpoint($end-small) {
                 display: -webkit-box;
@@ -1195,17 +1463,51 @@ search form
         }
     }
 
-    .search-toggle {
-        display: none;
+}
 
-        .js & {
-            display: block;
+.job-matching-callout {
+	text-align: center;
+	position: absolute;
+	top:72%;
+	left:50%;
+	transform: translateX(-50%) translateY(-50%);
+	width: 100%;
+	@include breakpoint($end-small) {
+		position: static;
+		transform: none;
+		margin: 30px auto 0;
+	}
+	a {
+		color: #fff;
+		font-size: 14px;
+		font-weight: $weight-medium;
 
-            @include breakpoint($end-small) {
-                display: none;
-            }
-        }
-    }
+		&:before {
+			content: " ";
+			display: inline-block;
+			background: url(../v2_0/img/linkedin.png) no-repeat;
+			background-size: contain;
+			height: 22px;
+			width: 22px;
+			margin-bottom: 3px;
+			vertical-align: middle;
+		}
+
+		&:after {
+			content: " ";
+			display: inline-block;
+			border: solid #fff;
+		  border-width: 0 3px 3px 0;
+			border-radius: 2px;
+		  display: inline-block;
+		  padding: 3px;
+			transform: rotate(-45deg);
+		  -webkit-transform: rotate(-45deg);
+
+		}
+
+	}
+
 }
 
 
@@ -1277,20 +1579,94 @@ auto complete keyword popup
 }
 
 /* =================================================================
+search results Page
+================================================================= */
+
+#search {
+  aside {
+    @include breakpoint($end-small) {
+      float: left;
+      width: 40%;
+      max-width: 275px;
+    }
+  }
+
+  #search-results {
+    padding: 30px 0 35px;
+    @include breakpoint($end-small) {
+      float: right;
+      width: 60%;
+    }
+    @include breakpoint(1030px) {
+      width: 67%;
+    }
+
+    h1 {
+      font-size: 28px;
+      color: #002d72;
+      @include breakpoint($end-small) {
+        font-size: 42px;
+      }
+    }
+  }
+}
+
+/* =================================================================
 search results - result list
 ================================================================= */
 #search-results-list {
+
     > ul {
         list-style: none;
         margin: 0;
 
         h2 {
             margin: 0;
+            color: $headline-blue;
+            font-size: 20px;
+            font-weight: $weight-medium;
+            margin-bottom: 5px;
+            @include breakpoint(1000px) {
+              font-size: 28px;
+            }
         }
 
         a {
             display: block;
-            padding: .5em 0;
+            padding: 20px 35px 20px 0;
+            position: relative;
+
+            &:after {
+              content: " ";
+              background: url(../v2_0/img/blue-arrow-right.png) no-repeat;
+              background-size: contain;
+              display: inline-block;
+              width: 9px;
+              height: 18px;
+              position: absolute;
+              top: 50%;
+              right: 0;
+              transform: translateX(-50%) translateY(-50%);
+              transition: .3s;
+            }
+
+            &:hover, &:focus {
+              &:after {
+                right: 20px;
+                transition: .3s;
+              }
+            }
+        }
+
+        li {
+          border-bottom: 1px solid #97999b;
+
+          .job-location {
+            font-size: 14px;
+            @include breakpoint(1000px) {
+              font-size: 16px;
+            }
+          }
         }
     }
 
@@ -1306,6 +1682,10 @@ search results - result list
     }
 }
 
+#applied-filters {
+  margin-top: 10px;
+}
+
 #applied-filters .filter-button {
 	-webkit-appearance: none;
 	background: none;
@@ -1318,6 +1698,7 @@ search results - result list
 	color: #035A8F;
 	text-decoration: none;
 	text-align: left;
+  font-size: 14px;
 
     &:after {
         content: "[x]";
@@ -1336,218 +1717,1152 @@ search results - result list
     }
 }
 
+#applied-filters-label {
+  font-size: 16px;
+}
+
 /* =================================================================
 search results - pagination
 ================================================================= */
 .pagination-current-label b {
-    @extend %wai;
+  @extend %wai;
 }
 
 .pagination-all {
-    display: none;
+  display: none;
 
-    .js & {
-        display: block;
-    }
+  .js & {
+    display: block;
+  }
 }
 
+#pagination-bottom {
+  text-align: center;
+  margin-top: 35px;
+  font-size: 16px;
+  @include breakpoint($end-small) {
+    text-align: left;
+  }
+
+  span {
+    border-right: 1px solid #000;
+    padding-right: 10px;
+  }
+
+  input {
+    border: none;
+    color: $headline-blue;
+    font-weight: $weight-bold;
+    text-align: center;
+  }
+
+  button {
+    padding: 0 0 0 10px;
+    color: $headline-blue;
+    font-weight: $weight-bold;
+
+    &:after {
+      content: " ";
+      border: solid $headline-blue;
+      border-width: 0 3px 3px 0;
+      display: inline-block;
+      padding: 3px;
+      transform: rotate(-45deg);
+      -webkit-transform: rotate(-45deg);
+      margin-left: 2px;
+    }
+  }
+
+  .pagination-paging {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+    @include breakpoint($end-small) {
+      justify-content: flex-start;
+    }
+
+    .prev {
+      width: 100px;
+      background: $headline-blue;
+      padding: 10px;
+      color: #fff;
+      font-size: 16px;
+      font-weight: $weight-bold;
+      border-radius: 6px;
+      margin-right: 5px;
+      text-align: center;
+      transition: 0.3s;
+
+      &.disabled {
+        display: block;
+        opacity: 0.5;
+        pointer-events: none;
+      }
+
+      &:before {
+        content: " ";
+        display: inline-block;
+        background: url("../v2_0/img/white-arrow.png") no-repeat;
+        background-size: contain;
+        height: 14px;
+        width: 12px;
+        position: relative;
+        margin-right: 11px;
+        top: 1px;
+        transform: rotate(180deg);
+      }
+
+      &:focus,
+      &:hover {
+        background: $hover-blue;
+        transition: 0.3s;
+      }
+
+      @include breakpoint($end-small) {
+        padding: 21px 10px;
+        width: 112px;
+      }
+
+    }
+
+    .next {
+      width: 100px;
+      padding: 10px;
+      background: $headline-blue;
+      color: #fff;
+      font-size: 16px;
+      font-weight: $weight-bold;
+      border-radius: 6px;
+      margin-left: 5px;
+      text-align: center;
+      transition: 0.3s;
+      @include breakpoint($end-small) {
+        padding: 21px 10px;
+        width: 112px;
+      }
+
+      &:after {
+        content: " ";
+        display: inline-block;
+        background: url("../v2_0/img/white-arrow.png") no-repeat;
+        background-size: contain;
+        height: 14px;
+        width: 12px;
+        position: relative;
+        margin-left: 11px;
+        top: 1px;
+      }
+
+      &:focus,
+      &:hover {
+        background: $hover-blue;
+        transition: 0.3s;
+
+      }
+    }
+  }
+}
 /* =================================================================
 search results - search filters
 ================================================================= */
 #search-filters {
-    background: #fff;
+  background: #fff;
+  padding: 0 20px;
+  @include breakpoint($end-small) {
+    padding: 0;
+  }
 
-    #refined-search {
-        label {
-            display: block;
-        }
+  > div {
+    margin-top: 80px;
 
-        .keyword-tag-error {
-            color: #c00;
-            font-size: 0.92em;
-            width: 100%;
-        }
+    > h2 {
+      font-size: 23px;
+      color: #002d72;
+      margin-bottom: 20px;
+    }
+  }
+
+  #refined-search {
+    label {
+      // SR only
+      border: 0 !important;
+      clip: rect(1px, 1px, 1px, 1px) !important;
+      /* 1 */
+      -webkit-clip-path: inset(50%) !important;
+      clip-path: inset(50%) !important;
+      /* 2 */
+      height: 1px !important;
+      margin: -1px !important;
+      overflow: hidden !important;
+      padding: 0 !important;
+      position: absolute !important;
+      width: 1px !important;
+      white-space: nowrap !important;
     }
 
-    #filter-distance {
-        label {
-            display: block;
-        }
-
-        select {
-            @extend %borderbox;
-            border: 1px solid $accent;
-            border-radius: 3px;
-            display: block;
-            padding: 2px;
-            width: 100%;
-
-            &:hover, &:focus {
-                border-color: $text;
-            }
-        }
+    .instruction-text {
+      font-size: 14px;
+      display: block;
+      margin-bottom: 15px;
     }
 
-    section[data-expandable="true"] {
-	    button.expandable-parent {
-        -webkit-appearance: none;
-        background: none;
-        color: inherit;
-        border: none;
-        padding: 0;
-        font: inherit;
-        cursor: pointer;
-        outline: inherit;
-        display: inherit;
-        color: #035A8F;
-        text-decoration: none;
-        width: 100%;
-        text-align: left;
-        &:hover, &:focus {
-           text-decoration: underline;
-         }
-        }
-        .js & {
-            .expandable-parent {
-                &:after {
-                    content: "[+]";
-                    display: inline-block;
-                    float: right;
-                }
-
-                &.expandable-child-open:after {
-                    content: "[-]";
-                }
-            }
-        }
+    input {
+      width: 100%;
+      font-size: 14px;
+      border: 1px solid #cccccc;
+      border-radius: 2px;
+      width: 100%;
+      -webkit-appearance: none;
+      padding: 12px 10px;
+      border-radius: 6px;
+      font-size: 14px;
+      color: #707070;
+      background: #fff;
+      margin-bottom: 15px;
     }
 
-    section[data-expandable="false"] {
-        .js & {
-            > a {
-                &:after {
-                    display: none;
-                }
-            }
+    #add-keyword {
+      display: block;
+      background: #005aa1;
+      height: 3em;
+      padding: 5px 10px;
+      text-align: center;
+      width: 100%;
+      color: #fff;
+      border-radius: 6px;
+      font-size: 15px;
+      font-weight: 500;
+      margin-bottom: 20px;
+      transition: 0.3s;
 
-            .search-filter-list {
-                display: block;
-            }
-        }
+      &:after {
+        content: " ";
+        display: inline-block;
+        background: url("../v2_0/img/white-arrow.png") no-repeat;
+        background-size: contain;
+        height: 14px;
+        width: 12px;
+        position: relative;
+        margin-left: 11px;
+        top: 1px;
+      }
+
+      &:focus,
+      &:hover {
+        background: $hover-blue;
+        transition: 0.3s;
+      }
     }
 
-    .search-filter-list {
-        @extend %borderbox;
-        list-style: none;
-        margin: 0;
-        overflow-x: hidden;
-        overflow-y: auto;
+    .keyword-tag-error {
+      color: #c00;
+      font-size: 0.92em;
+      width: 100%;
+    }
+  }
 
-        ul {
-            margin-left: 2em;
-        }
-
-        @include breakpoint($end-small) {
-            max-height: 200px;
-        }
-
-        label {
-            @extend %borderbox;
-            cursor: pointer;
-            display: block;
-        }
-
-        input[type="checkbox"] {
-            clear: right;
-            float: right;
-
-            &:disabled + label {
-                color: graytext;
-            }
-
-            &:not([disabled]):checked + label {
-                background: $primary;
-                color: #fff;
-            }
-
-            &:not([disabled]):focus:checked + label, &:not([disabled]):hover:checked + label {
-                background: lighten($primary, 8%);
-            }
-        }
-
-        .js & {
-            display: none;
-
-            &.expandable-childlist-open {
-                display: block;
-            }
-        }
+  #filter-distance {
+    label {
+      display: block;
     }
 
-    #search-filter-apply {
-        @include breakpoint($end-small) {
-            display: none;
-        }
+    select {
+      @extend %borderbox;
+      border: 1px solid $accent;
+      border-radius: 3px;
+      display: block;
+      padding: 2px;
+      width: 100%;
+
+      &:focus,
+      &:hover {
+        border-color: $text;
+      }
     }
+  }
+
+  section[data-expandable="true"] {
+    button.expandable-parent {
+      -webkit-appearance: none;
+      background: none;
+      color: inherit;
+      border-bottom: 1px solid #cbcccd;
+      padding: 0;
+      font: inherit;
+      font-size: 15px;
+      cursor: pointer;
+      outline: inherit;
+      display: inherit;
+      color: #002d72;
+      font-weight: $weight-medium;
+      text-decoration: none;
+      width: 100%;
+      text-align: left;
+      padding: 15px;
+
+      &:focus,
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+
+    .js & {
+      .expandable-parent {
+        &:after {
+          content: " ";
+          display: inline-block;
+          float: right;
+          background: url("../v2_0/img/blue-arrow.png") no-repeat;
+          background-size: contain;
+          width: 14px;
+          height: 9px;
+        }
+
+        &.expandable-child-open:after {
+          content: " ";
+          display: inline-block;
+          float: right;
+          background: url("../v2_0/img/blue-arrow.png") no-repeat;
+          background-size: contain;
+          width: 14px;
+          height: 9px;
+          transform: rotate(180deg);
+        }
+      }
+    }
+  }
+
+  section[data-expandable="false"] {
+    .js & {
+      > a {
+        &:after {
+          display: none;
+        }
+      }
+
+      .search-filter-list {
+        display: block;
+      }
+    }
+  }
+
+  .search-filter-list {
+    @extend %borderbox;
+    list-style: none;
+    margin: 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding: 20px 15px;
+
+    ul {
+      margin-left: 2em;
+    }
+    @include breakpoint($end-small) {
+      max-height: 200px;
+    }
+
+    li {
+      margin-bottom: 15px;
+    }
+
+    label {
+      @extend %borderbox;
+      cursor: pointer;
+      display: block;
+      font-size: 14px;
+
+      .filter__facet-count {
+        display: none;
+      }
+    }
+
+    input[type="checkbox"] {
+      clear: right;
+      float: right;
+
+      &:disabled + label {
+        color: graytext;
+      }
+
+      &:not([disabled]):checked + label {
+        background: $primary;
+        color: #fff;
+      }
+
+      &:not([disabled]):focus:checked + label,
+      &:not([disabled]):hover:checked + label {
+        background: lighten($primary, 8%);
+      }
+    }
+
+    .js & {
+      display: none;
+
+      &.expandable-childlist-open {
+        display: block;
+      }
+    }
+  }
+
+  #search-filter-apply {
+    @include breakpoint($end-small) {
+      display: none;
+    }
+  }
 }
 
 #search-filter-controls {
+  text-align: center;
+  @include breakpoint($end-small) {
+    text-align: right;
+  }
+
+  button {
+    display: block;
+    background: #005aa1;
+    height: 3em;
+    padding: 5px 10px;
     text-align: center;
+    width: 100%;
+    color: #fff;
+    border-radius: 6px;
+    font-size: 15px;
+    font-weight: 500;
+    margin-top: 25px;
+    transition: 0.3s;
 
-    @include breakpoint($end-small) {
-        text-align: right;
+    &:after {
+      content: " ";
+      display: inline-block;
+      background: url("../v2_0/img/white-arrow.png") no-repeat;
+      background-size: contain;
+      height: 14px;
+      width: 12px;
+      position: relative;
+      margin-left: 11px;
+      top: 1px;
     }
-}
 
+    &:focus,
+    &:hover {
+      background: $hover-blue;
+      transition: 0.3s;
+    }
+  }
+}
 @include filter-slide-out(800px, 0, search-filters);
 
 #filter-close-toggle {
-    background: none repeat scroll 0 0 #fff;
-    border: 0 none;
-    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.5);
-    box-sizing: border-box;
-    display: block;
-    height: 3em;
-    left: 0;
-    padding: 5px 10px;
-    position: absolute;
-    text-align: left;
-    top: 0;
-    width: 100%;
+  background: $headline-blue;
+  border: 0 none;
+  box-shadow: 0 1px 3px 0 rgba(0,0,0,0.5);
+  box-sizing: border-box;
+  display: block;
+  height: 3em;
+  padding: 5px 10px;
+  position: absolute;
+  text-align: center;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  width: 90%;
+  color: #fff;
+  border-radius: 6px;
+  margin: 23px 0 0;
+  font-weight: $weight-medium;
+  font-size: 15px;
 
-    &.open {
-        position: fixed;
-    }
-
-    @include breakpoint($end-small) {
-        display: none;
-    }
+  &.open {
+    position: fixed;
+  }
+  @include breakpoint($end-small) {
+    display: none;
+  }
 }
 
 #filter-slideout-toggle {
-    @include breakpoint($end-small) {
-        display: none;
-    }
+  display: block;
+  text-align: center;
+  width: 100%;
+  padding: 10px;
+  color: #fff;
+  border-radius: 6px;
+  font-size: 15px;
+  font-weight: 500;
+  margin: 10px auto 20px;
+  position: relative;
+  background: $headline-blue;
+  border: 1px solid $headline-blue;
+  transition: 0.3s;
+  @include breakpoint($end-small) {
+    display: none;
+  }
+
+  &:focus,
+  &:hover {
+    background: #fff;
+    color: $headline-blue;
+    transition: 0.3s;
+  }
 }
 
 /* =================================================================
-job alerts form - location pin
+job alerts form
 ================================================================= */
 .data-form .form-field {
-    input:not([type="submit"]):not([type="file"]).keyword-location.location-with-pin {
-        float: left;
+	input:not([type="submit"]):not([type="file"]).keyword-location.location-with-pin {
+		float: left;
+	}
+
+	input[type="button"].location-detection {
+		display: inline-block;
+		width: 25px;
+		height: 25px;
+		border-radius: 0 2px 2px 0;
+		background: url("../../../img/client/location-pin.png") no-repeat scroll 50% 50% #fff;
+		border: none;
+		text-indent: -9999em;
+		margin-left: -27px;
+		margin-top: 1px;
+	}
+}
+
+.job-alert-form {
+	padding: 23px 20px 50px;
+	max-width: 1180px;
+	margin: 0 auto;
+  clear: both;
+  border-top: 1px solid #97999b;
+
+	@include breakpoint($end-small) {
+		padding: 50px 20px 0;
+	}
+
+  #home & {
+    padding: 23px 20px;
+    @include breakpoint($end-small) {
+      padding: 50px 20px;
     }
-    input[type="button"].location-detection {
-        display: inline-block;
-        width: 25px;
-        height: 25px;
-        border-radius: 0 2px 2px 0;
-        background: url("../../../img/client/location-pin.png") no-repeat scroll 50% 50% #fff;
-        border: none;
-        text-indent: -9999em;
-        margin-left: -27px;
-        margin-top: 1px;
+  }
+
+  .job-alert-intro {
+    text-align: center;
+    @include breakpoint($end-small) {
+      float: left;
+      text-align: left;
+      margin-bottom: 50px;
+
+      #home & {
+        float: none;
+        text-align: center;
+        margin-bottom: 0;
+      }
     }
+
+    h2 {
+  		color: $headline-blue;
+  		font-size: 28px;
+  		margin-bottom: 15px;
+      @include breakpoint($end-small) {
+        font-size: 42px;
+      }
+  	}
+
+  	.form-instructions {
+  	  width: 100% !important;
+  		margin-bottom: 20px;
+  		@include breakpoint($end-small) {
+  			margin-bottom: 30px;
+  			float: none !important;
+  		}
+  	}
+  }
+
+	.job-alert-toggle {
+		display: none;
+		margin-top: 40px;
+    clear: both;
+	}
+
+	.btnJobAlertToggle {
+    @include breakpoint($end-small) {
+      float: right;
+      padding: 20px 10px;
+      font-size: 16px;
+
+      #home & {
+        float: none;
+
+      }
+    }
+	}
+
+
+
+	input,
+	select {
+		width: 100%;
+		-webkit-appearance: none;
+		background: #eeeeee;
+		font-size: 14px;
+		border: none !important;
+		border-radius: 3px !important;
+		padding: 12px 10px !important;
+		color: #707070 !important;
+
+    @include breakpoint($end-small) {
+      font-size: 16px;
+      padding: 22px 20px !important;
+    }
+	}
+
+  select {
+    background-image: url(../v2_0/img/select-arrow.png);
+    background-repeat: no-repeat;
+    background-position: 93% center;
+  }
+
+	label {
+		border: 0 !important;
+		clip: rect(1px, 1px, 1px, 1px) !important;
+		-webkit-clip-path: inset(50%) !important;
+		clip-path: inset(50%) !important;
+		height: 1px !important;
+		margin: -1px !important;
+		overflow: hidden !important;
+		padding: 0 !important;
+		position: absolute !important;
+		width: 1px !important;
+		white-space: nowrap !important;
+	}
+
+	legend {
+		display: none;
+	}
+
+	p {
+		margin-bottom: 15px;
+
+		&:last-of-type {
+			width: calc(100% - 88px);
+			float: left;
+		}
+		@include breakpoint($end-small) {
+			&:nth-of-type(1),
+			&:nth-of-type(2),
+			&:nth-of-type(3) {
+				float: left;
+				width: calc(33% - 5px);
+				margin-right: 10px;
+				margin-bottom: 34px;
+			}
+
+			&:nth-of-type(3) {
+				margin-right: 0;
+			}
+
+			&:nth-of-type(4) {
+				clear: both;
+				margin-bottom: 34px;
+			}
+
+			&:nth-of-type(5),
+			&:nth-of-type(6) {
+				float: left;
+				width: calc(50% - 5px);
+				margin-right: 10px;
+				margin-bottom: 34px;
+			}
+
+			&:nth-of-type(6) {
+				margin-right: 0;
+			}
+
+			&:nth-of-type(7) {
+				margin-right: 0;
+			}
+		}
+	}
+
+	fieldset {
+		clear: both;
+
+    &:last-of-type {
+      margin-bottom: 5px;
+      @include breakpoint($end-small) {
+        margin-bottom: 0;
+      }
+    }
+
+
+		@include breakpoint($end-small) {
+			p {
+				&:nth-of-type(1) {
+					float: left;
+					width: 48%;
+					margin-right: 20px;
+				}
+
+				&:nth-of-type(2) {
+					float: left;
+					width: calc(48% - 88px);
+					margin-right: 10px;
+				}
+			}
+		}
+		@include breakpoint(1000px) {
+			p {
+				&:nth-of-type(2) {
+					width: calc(48% - 180px);
+				}
+			}
+		}
+
+		.instruction-text {
+			margin-bottom: 15px;
+			display: block;
+			font-size: 14px;
+			@include breakpoint($end-small) {
+				margin-bottom: 30px;
+			}
+		}
+	}
+
+	.keyword-add {
+		float: left;
+		width: 80px;
+		background: $light-blue;
+		color: #fff;
+		height: 40px;
+		border-radius: 6px;
+		margin-left: 8px;
+		@include breakpoint($end-small) {
+			font-size: 16px;
+      height: 62.88px;
+		}
+		@include breakpoint(1000px) {
+			width: 180px;
+		}
+	}
+
+  .keyword-text {
+    font-size: 14px;
+  }
+
+  .keyword-selected {
+
+    li {
+      float: left;
+      clear: both;
+    }
+  }
+
+
+
+	.submit {
+    @include breakpoint($end-small) {
+      margin-bottom: 70px;
+
+      #home & {
+        margin-bottom: 0;
+      }
+    }
+		button {
+			background: #005aa1;
+			font-size: 16px;
+			width: 140px;
+			padding: 13px 10px 13px 0;
+      color: #fff;
+      border-radius: 6px;
+      font-weight: $weight-medium;
+      transition: .3s;
+      @include breakpoint($end-small) {
+        padding: 21px 10px;
+        width: 180px;
+      }
+      		&:after {
+      			content: " ";
+      	    display: inline-block;
+      	    background: url(../v2_0/img/white-arrow.png) no-repeat;
+      	    height: 14px;
+      	    width: 12px;
+            position: relative;
+            margin-left: 11px;
+            top: 1px;
+            @include breakpoint($end-small) {
+              margin-left: 27px;
+            }
+      		}
+
+          &:hover, &:focus {
+            transition: .3s;
+            background: $hover-blue;
+          }
+		}
+	}
+
+
+  .gdpr-eu-tmp-notice {
+    font-size: 14px !important;
+    margin-bottom: 30px;
+    @include breakpoint($end-small) {
+      margin-bottom: 60px;
+    }
+
+    a {
+      color: #005aa1;
+      text-decoration: underline;
+      font-weight: $weight-medium;
+    }
+  }
+
+  .form-message {
+
+    @include breakpoint(540px) {
+      position: absolute;
+      bottom: 0;
+      left: 166px;
+    }
+    @include breakpoint($end-small) {
+      left: 200px;
+    }
+
+    b {
+        font-size: 14px;
+    }
+  }
+
+
+}
+
+
+/* =================================================================
+Life at Citi page (Tintup)
+================================================================= */
+
+#life-at-citi {
+  #content {
+    .max-width-wrapper {
+      padding: 30px 20px 0;
+      @include breakpoint($end-small) {
+        padding: 50px 20px 0;
+      }
+    }
+  }
+
+  .tintup {
+    margin-bottom: 50px;
+  }
+}
+
+.life-at-citi {
+  &__intro {}
+
+  &__headline {
+    text-align: center;
+    color: $headline-blue;
+    font-size: 28px;
+    margin-bottom: 16px;
+    @include breakpoint($end-small) {
+      font-size: 42px;
+    }
+  }
+
+  &__text {
+    font-size: 16px;
+    color: #555555;
+    line-height: 1.7;
+    margin-bottom: 50px;
+    @include breakpoint($end-small) {
+      font-size: 16px;
+    }
+  }
+}
+
+/* =================================================================
+Saved jobs
+================================================================= */
+.saved-jobs {
+	background: #002a55;
+	padding: 20px;
+	margin-bottom: 20px;
+	@include breakpoint($end-small) {
+		margin-bottom: 0;
+		width: 49%;
+		padding: 60px 40px;
+	}
+	@include breakpoint(1200px) {
+		padding: 60px 80px;
+	}
+
+  .no-jobs {
+    color: #fff;
+    text-align: center;
+    font-size: 18px;
+    @include breakpoint($end-small) {
+      font-size: 22px;
+    }
+  }
+
+	h2 {
+		color: #fff;
+		text-align: center;
+		font-size: 28px;
+		font-weight: $weight-normal;
+		margin-bottom: 20px;
+		@include breakpoint($end-small) {
+			font-size: 39px;
+			margin-bottom: 40px;
+		}
+	}
+
+	ul {
+		@include breakpoint($end-small) {
+			display: flex;
+			justify-content: center;
+			margin-bottom: 20px;
+		}
+	}
+
+	li {
+		text-align: center;
+		@include breakpoint($end-small) {
+			width: 50%;
+			text-align: left;
+		}
+
+		&:not(:last-of-type) {
+			margin-bottom: 20px;
+			@include breakpoint($end-small) {
+				margin-bottom: 0;
+				margin-right: 20px;
+			}
+		}
+
+		 a {
+			 color: #fff;
+			 font-weight: $weight-medium;
+			 font-size: 15px;
+			 @include breakpoint($end-small) {
+				 font-size: 16px;
+			 }
+		 }
+		 span {
+			 display: block;
+			 color: #fff;
+			 font-size: 15px;
+			 font-weight: $weight-normal;
+			 @include breakpoint($end-small) {
+				 font-size: 16px;
+			 }
+		 }
+	}
+
+	.see-all {
+		width: 200px;
+		margin: 30px auto 0;
+    display: block;
+    text-align: center;
+    padding: 10px;
+    color: #fff;
+    border-radius: 6px;
+    font-size: 15px;
+    font-weight: 500;
+    position: relative;
+    background: #158ae6;
+    border: 1px solid #158ae6;
+    transition: .3s;
+    @include breakpoint($end-small) {
+      width: 230px;
+      padding: 18px 10px;
+      font-size: 16px;
+    }
+
+		&:after {
+			content: " ";
+			display: inline-block;
+			background: url(../v2_0/img/white-arrow.png) no-repeat;
+			background-size: contain;
+			height: 14px;
+			width: 12px;
+			position: relative;
+			margin-left: 11px;
+			top: 1px;
+		}
+
+    &:hover, &:focus {
+      background: transparent;
+        transition: .3s;
+    }
+	}
+}
+
+.jobs-wrap {
+	margin-bottom: 20px;
+  clear: both;
+
+	@include breakpoint($end-small) {
+		display: flex;
+		justify-content: space-between;
+		margin-bottom: 70px;
+	}
+}
+
+/* =================================================================
+Saved jobs Page
+================================================================= */
+
+#saved-jobs {
+
+  #content {
+    .max-width-wrapper {
+      padding: 30px 20px 40px;
+      @include breakpoint($end-small) {
+        padding: 50px 20px 60px;
+      }
+    }
+  }
+}
+
+.saved-jobs-list {
+
+  h2 {
+    font-size: 28px;
+    color: #002d72;
+    margin-bottom: 30px;
+    @include breakpoint($end-small) {
+      font-size: 42px;
+    }
+  }
+
+  ul {
+
+  }
+
+  li {
+    padding: 20px 35px 20px 0;
+    position: relative;
+
+    &:not(:last-of-type) {
+      border-bottom: 1px solid #97999b;
+    }
+
+    &:after {
+      content: " ";
+      background: url(../v2_0/img/blue-arrow-right.png) no-repeat;
+      background-size: contain;
+      display: inline-block;
+      width: 9px;
+      height: 18px;
+      position: absolute;
+      top: 50%;
+      right: 0;
+      transform: translateX(-50%) translateY(-50%);
+      transition: .3s;
+    }
+
+    a {
+      margin: 0;
+      color: #005aa1;
+      font-size: 20px;
+      font-weight: 500;
+      margin-bottom: 5px;
+      @include breakpoint($end-small) {
+        font-size: 28px;
+      }
+    }
+
+    span {
+      display: block;
+      font-size: 14px;
+      @include breakpoint($end-small) {
+        font-size: 16px;
+      }
+    }
+  }
+}
+
+
+/* =================================================================
+Previously viewed jobs
+================================================================= */
+.recently-viewed-job-list {
+	background: #005ba1;
+	padding: 20px;
+	@include breakpoint($end-small) {
+		margin-bottom: 0;
+		width: 49%;
+		padding: 60px 40px;
+	}
+	@include breakpoint(1200px) {
+		padding: 60px 80px;
+	}
+
+  .no-jobs {
+    color: #fff;
+    text-align: center;
+    font-size: 18px;
+    @include breakpoint($end-small) {
+      font-size: 22px;
+    }
+  }
+
+
+	h3 {
+		color: #fff;
+		text-align: center;
+		font-size: 28px;
+		font-weight: $weight-normal;
+		margin-bottom: 20px;
+		@include breakpoint($end-small) {
+			font-size: 39px;
+      margin-bottom: 40px;
+		}
+	}
+
+	ul {
+		@include breakpoint($end-small) {
+			display: flex;
+			justify-content: center;
+			margin-bottom: 20px;
+		}
+	}
+
+	li {
+		text-align: center;
+    margin-bottom: 20px;
+		@include breakpoint($end-small) {
+			width: 50%;
+			text-align: left;
+      margin-bottom: 0;
+		}
+
+		&:not(:last-of-type) {
+
+			@include breakpoint($end-small) {
+				margin-bottom: 0;
+				margin-right: 20px;
+			}
+		}
+
+		 a {
+			 color: #fff;
+			 font-weight: $weight-medium;
+			 font-size: 15px;
+			 @include breakpoint($end-small) {
+				font-size: 16px;
+			}
+		 }
+		 span {
+			 display: block;
+			 color: #fff;
+			 font-size: 15px;
+			 font-weight: $weight-normal;
+			 @include breakpoint($end-small) {
+				font-size: 16px;
+			}
+		 }
+	}
 }
 
 /* =================================================================
@@ -1561,26 +2876,209 @@ job custom facet module
     }
 }
 
+
+
 /* =================================================================
 job details - style overrides for ATS description
 ================================================================= */
-.job-info {
-    display: block;
 
-    b {
-        &:after {
-            content: ":";
-        }
+#job {
+
+  h1 {
+    font-size: 28px;
+    color: #002d72;
+    margin-bottom: 20px;
+    @include breakpoint($end-small) {
+      font-size: 42px;
+      margin-bottom: 27px;
     }
+  }
+
+  .job-description {
+    margin-top: 30px;
+    @include breakpoint($end-small) {
+      margin-top: 50px;
+    }
+  }
+
 }
+
+.job-info {
+
+  @include breakpoint($end-small) {
+    margin-bottom: 27px;
+  }
+
+  br {
+    display: none;
+    @include breakpoint($end-small) {
+      display: block;
+
+    }
+  }
+
+  &__item {
+      display: block;
+      color: #53565a;
+      font-size: 16px;
+      margin-bottom: 5px;
+      b {
+        color: #002d72;
+        font-size: 16px;
+        font-weight: $weight-bold;
+          &:after {
+              content: ":";
+          }
+      }
+      @include breakpoint($end-small) {
+        display: inline-block;
+        margin-right: 15px;
+      }
+  }
+}
+
+.job-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+  margin-bottom: 30px;
+  @include breakpoint(500px) {
+    justify-content: flex-start;
+    margin-bottom: 41px;
+
+  }
+
+  #advanced-job & {
+    @include breakpoint($end-small) {
+      justify-content: flex-end;
+    }
+  }
+
+}
+
+.job-apply {
+  background: $headline-blue;
+  text-align: left;
+  width: 142px;
+  padding: 13px 10px 10px 23px;
+  color: #fff;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: 500;
+  height: 45px;
+  position: relative;
+  transition: .3s;
+  @include breakpoint(500px) {
+    margin-right: 20px;
+  }
+  @include breakpoint($end-small) {
+    text-align: center;
+    height: 60px;
+    width: 185px;
+    padding: 20px 10px 10px 0px;
+  }
+
+    &:after {
+      content: " ";
+      display: inline-block;
+      background: url(../v2_0/img/white-arrow.png) no-repeat;
+      background-size: contain;
+      height: 14px;
+      width: 12px;
+      position: absolute;
+      margin-left: 11px;
+      top: 15px;
+      @include breakpoint($end-small) {
+        top: 22px;
+      }
+    }
+
+    &:hover, &:focus {
+      background: $hover-blue;
+      transition: .3s;
+    }
+
+}
+
+
+
+  .save-jobs-btn {
+    background: #158ae6;
+    text-align: left;
+    width: 142px;
+    padding: 11px 10px 10px 23px;
+    color: #fff;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: 500;
+    height: 45px;
+    position: relative;
+      transition: .3s;
+
+    @include breakpoint($end-small) {
+      text-align: center;
+      height: 60px;
+      width: 185px;
+      padding: 12px 10px 10px 0px;
+    }
+
+    &:after {
+      content: " ";
+      display: inline-block;
+      background-size: contain;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 14'%3E%3Cpath d='M7 11.1l3.3 2.4c.5.4 1.2-.1 1-.7L10 8.9l3.2-2.3c.5-.4.3-1.2-.4-1.2h-4l-1.3-4c-.2-.6-1.1-.6-1.3 0l-1.3 4h-4c-.7 0-.9.8-.4 1.2l3.2 2.3-1.3 3.9c-.2.6.5 1.1 1 .7L7 11.1z' clip-rule='evenodd' fill='none' stroke='%23fff' stroke-width='.5' stroke-miterlimit='10'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      height: 20px;
+      width: 20px;
+      position: absolute;
+      margin-left: 11px;
+      top: 10px;
+      @include breakpoint($end-small) {
+        top: 18px;
+      }
+
+      &:hover, &:focus {
+        background: $blue;
+        transition: .3s;
+      }
+    }
+
+  &.saved {
+    &:after {
+      content: " ";
+      display: inline-block;
+      background-size: contain;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 14'%3E%3Cpath fill='none' d='M-5-4h24v24H-5z'/%3E%3Cpath d='M7 11.1l3.3 2.4c.5.4 1.2-.1 1-.7L10 8.9l3.2-2.3c.5-.4.3-1.2-.4-1.2h-4l-1.3-4c-.2-.6-1.1-.6-1.3 0l-1.3 4h-4c-.7 0-.9.8-.4 1.2l3.2 2.3-1.3 3.9c-.2.6.5 1.1 1 .7L7 11.1z' fill-rule='evenodd' clip-rule='evenodd' fill='%23ffffff'/%3E%3C/svg%3E ");
+      background-repeat: no-repeat;
+      height: 20px;
+      width: 20px;
+      position: absolute;
+      margin-left: 11px;
+      top: 10px;
+      @include breakpoint($end-small) {
+        top: 18px;
+      }
+    }
+  }
+}
+
+
 
 .ats-description {
     margin-top: 1em;
+    margin-bottom: 35px;
+    @include breakpoint($end-small) {
+      margin-bottom: 80px;
+    }
 
     * {
-        color: #000 !important;
-        font: 1rem Arial, Helvetica, sans-serif !important;
+        color: #53565a !important;
+        font-family: 'interstate' !important;
         line-height: 1.4em !important;
+        font-size: 15px;
+        @include breakpoint($end-small) {
+          font-size: 18px;
+        }
 
         &:not(br):empty {
             display: none;
@@ -1592,12 +3090,24 @@ job details - style overrides for ATS description
         margin: 0 0 .5em 0;
     }
 
+    b {
+      font-weight: bold !important;
+      color: #222222 !important;
+    }
+
     p, div, span, font {
-        font-family: Arial, Helvetica, sans-serif;
-        font-size: 1em !important;
+        font-family: 'interstate';
+        font-size: 15px !important;
         margin-left: 0 !important;
         margin-right: 0 !important;
         text-indent: 0 !important;
+        @include breakpoint($end-small) {
+          font-size: 18px !important;
+        }
+
+        a {
+          color: #0645AD !important;
+        }
     }
 
     p, div {
@@ -1606,52 +3116,120 @@ job details - style overrides for ATS description
 
     ul, ol {
         list-style-position: outside;
-        margin: 0 0 1em 2em !important;
+        margin: 30px 0 30px 2em !important;
+    }
+
+    li {
+      list-style-type: disc;
+      margin-bottom: 5px;
     }
 }
 
 
-.job-apply {
-    clear: both;
-    display: block;
-    font-size: 1.1em;
-    margin: 1em 0;
-    padding: 5px 10px;
 
-    @include breakpoint($mid_small) {
-        float: right;
-        line-height: 1.4em;
-        min-width: 6em;
-
-        &.top {
-            margin: 0 0 1em 1em;
-        }
-    }
-}
 
 .job-description {
     #save-job,
 	&[data-save-jobs="true"] .js-save-job-btn {
-        float: right;
-        background-image: url("../../../img/client/star-icon-gray.png");
-        background-repeat: no-repeat;
-        background-position: right;
-        background-color: transparent;
-        height: 25px;
-        border: none;
-        text-align: right;
-        padding-right: 35px;
-        opacity: .9;
-        margin-bottom: 1em;
+        // float: right;
+        // background-image: url("../../../img/client/star-icon-gray.png");
+        // background-repeat: no-repeat;
+        // background-position: right;
+        // background-color: transparent;
+        // height: 25px;
+        // border: none;
+        // text-align: right;
+        // padding-right: 35px;
+        // opacity: .9;
+        // margin-bottom: 1em;
 
         &:hover, &:focus {
             opacity: 1;
             outline: none;
         }
-		&.saved {
-			background-image: url("../../../img/client/star-icon.png") !important;
-		}
+
     }
+}
+
+.job-facts {
+    border-top: 1px solid #97999b;
+    padding: 30px 0 60px;
+    margin: 52px 0 0;
+    @include breakpoint($end-small) {
+      padding: 60px 0;
+      margin: 80px 0 0;
+    }
+
+    #job & {
+      clear: both;
+    }
+
+    #advanced-job & {
+
+      margin: 52px 20px 0;
+      @include breakpoint($end-small) {
+        margin: 80px 20px 0;
+      }
+    }
+
+
+  &__list {
+    @include breakpoint($end-small) {
+      display: flex;
+    }
+  }
+  &__item {
+    max-width: 225px;
+    margin: 0 auto 40px;
+    @include breakpoint($end-small) {
+        max-width: 240px;
+    }
+    p {
+      font-size: 15px;
+      text-align: center;
+      color: #222222;
+      font-weight: $weight-medium;
+      @include breakpoint($end-small) {
+        font-size: 16px;
+      }
+
+      br {
+        display: none;
+        @include breakpoint($end-small) {
+          display: block;
+        }
+      }
+    }
+  }
+
+  &__text {
+    font-size: 16px;
+      color: #222222;
+      line-height: 1.5;
+  }
+
+  &__icon {
+    width: 100px;
+    height: 100px;
+    display: block;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    margin: 0 auto 20px;
+
+    &.employees {
+      @include icon-employee(#00bdf2);
+    }
+
+    &.hands {
+      @include icon-hands(#0e64a7);
+    }
+
+    &.globe {
+      @include icon-globe(#00bdf2);
+    }
+
+  }
 }
 
 /* =================================================================
@@ -1675,11 +3253,401 @@ language redirection
 /* =================================================================
 job matching page
 ================================================================= */
-.job-matching-user {
-    img {
-        width: 100px;
-        margin-right: 10px;
+
+
+#job-match {
+  #content {
+    .max-width-wrapper {
+      padding-top: 30px;
+      padding-bottom: 40px;
+      @include breakpoint($end-small) {
+        padding-top: 50px;
+        padding-bottom: 60px;
+      }
     }
+  }
+	#job-matching-results {
+		h2[role="status"] {
+			color: $headline-blue;
+			font-size: 24px;
+			text-transform: uppercase;
+			margin-bottom: 28px;
+      font-weight: $weight-medium;
+      @include breakpoint($end-small) {
+        font-size: 28px;
+      }
+		}
+
+		li {
+		    border-bottom: 1px solid #97999b;
+			a {
+        display: block;
+        padding: 20px 35px 20px 0;
+        position: relative;
+        &:after {
+          content: " ";
+          background: url(../v2_0/img/blue-arrow-right.png) no-repeat;
+          background-size: contain;
+          display: inline-block;
+          width: 9px;
+          height: 18px;
+          position: absolute;
+          top: 50%;
+          right: 0;
+          transform: translateX(-50%) translateY(-50%);
+        }
+			}
+
+			h2 {
+        margin: 0;
+        color: #005aa1;
+        font-size: 20px;
+        margin-bottom: 5px;
+        @include breakpoint(1000px) {
+          font-size: 23px;
+        }
+			}
+
+			span {
+				display: block;
+        font-size: 14px;
+			}
+		}
+	}
+
+	#job-matching-logout {
+		@include clearfix;
+		margin: 40px 0 10px;
+		@include breakpoint($end-small) {
+			margin: 0;
+		}
+
+		.job-matching-user {
+			h2 {
+				margin-bottom: 20px;
+			}
+
+			img {
+				float: left;
+				width: 92px;
+				margin-right: 22px;
+			}
+		}
+
+		a {
+			margin-top: 20px;
+			color: #fff;
+			background: $blue;
+			border-radius: 6px;
+			padding: 4px 18px;
+			text-align: center;
+			text-transform: uppercase;
+			font-size: 15px;
+		}
+	}
+
+	#job-matching-filters {
+		margin-bottom: 40px;
+
+		fieldset {
+			width: 100%;
+		}
+
+		.expandable-parent a {
+      -webkit-appearance: none;
+      background: none;
+      color: inherit;
+      border-bottom: 1px solid #cbcccd;
+      padding: 0;
+      font: inherit;
+      font-size: 15px;
+      cursor: pointer;
+      outline: inherit;
+      display: inherit;
+      color: #002d72;
+      font-weight: 500;
+      text-decoration: none;
+      width: 100%;
+      text-align: left;
+      padding: 15px;
+
+			&:focus,
+			&:hover {
+				color: $blue;
+			}
+
+			&:after {
+				color: $blue;
+			}
+
+			&.expandable-childlist-open {
+				margin-top: -10px;
+			}
+		}
+	}
+
+  .job-matching-filter-list {
+
+    label {
+      font-size: 14px;
+    }
+  }
+
+  .job-matching-filter-list input[type="checkbox"]:checked+label {
+    background: $blue;
+    color: #fff;
+  }
+
+	.left {
+		@include breakpoint($end-small) {
+			width: calc(40% - 25px);
+		}
+		@include breakpoint(1000px) {
+			width: calc(40% - 60px);
+		}
+	}
+
+	.right {
+		@include breakpoint($end-small) {
+			width: 60%;
+		}
+	}
+
+	.job-matching-location {
+	     input {
+	         border: 1px solid #c2c2c2;
+	     }
+	}
+}
+
+/* =================================================================
+Job Alert Management Page styles
+================================================================= */
+#ja-mgmt {
+	h1 {
+		font-weight: $weight-medium;
+		font-size: 17px;
+    color: $headline-blue;
+	}
+
+  #content {
+  	.max-width-wrapper {
+  		margin-top: 35px;
+  	}
+  }
+
+	#job-alert-list {
+		margin: 15px 0;
+		@include breakpoint($end-small) {
+			float: left;
+			width: 49%;
+			margin: 0 0 15px;
+		}
+
+		.no-subscriptions {
+			font-size: 13px;
+		}
+
+		li {
+			margin: 15px 0;
+		}
+
+		button {
+			display: block;
+			background: $primary;
+			color: #fff;
+			font-weight: bold;
+			padding: 7px;
+			margin-top: 5px;
+		}
+	}
+
+	#job-alert-list-editor {
+		margin-bottom: 30px;
+		background-color: #e1eff2;
+		padding: 20px;
+		clear: both;
+		padding-bottom: 70px;
+		@include clearfix;
+		@include breakpoint($end-small) {
+			padding-bottom: 25px;
+		}
+
+		h1 {
+			margin: 15px 0;
+		}
+
+		label {
+			font-size: 14px;
+			display: block;
+			margin-bottom: 5px;
+		}
+
+		input {
+			border: 1px solid #ccc;
+			border-radius: 2px;
+			width: 100%;
+			height: 37px;
+			font-size: 14px;
+		}
+
+		button {
+			border-radius: 0;
+			background-color: #fff;
+			font-size: 15px;
+			font-weight: normal;
+			padding: 0.5em 1em;
+			color: #000;
+			border: 0;
+			float: right;
+			margin-right: 35px;
+		}
+
+		p {
+			font-size: 15px;
+			margin-bottom: 15px;
+		}
+	}
+
+	.job-alert-list-category {
+		@include breakpoint($end-small) {
+			float: left;
+			width: calc(50% - 30px);
+			margin-top: 10px;
+		}
+	}
+
+	.job-alert-list-location {
+		@include breakpoint($end-small) {
+			float: right;
+			width: calc(50% - 30px);
+			margin-top: 10px;
+		}
+	}
+
+	#job-alert-unsubscribe {
+		margin-bottom: 30px;
+		@include breakpoint($end-small) {
+			float: right;
+			width: 49%;
+		}
+
+		p {
+			font-size: 15px;
+			margin: 15px 0;
+		}
+
+		button {
+			border-radius: 0;
+			border: 0;
+			background-color: $blue;
+			font-weight: $weight-medium;
+			padding: 0.5em 1em;
+			color: #fff;
+      font-size: 15px;
+      border-radius: 6px;
+		}
+	}
+}
+
+
+/* =================================================================
+Sitemap
+================================================================= */
+
+
+#sitemap {
+
+    #content {
+      .max-width-wrapper {
+    		padding: 30px 20px 40px;
+    		@include breakpoint($end-small) {
+    			padding: 50px 20px 60px;
+    		}
+    }
+  }
+
+  .job-location, .job-category, .job-keyword {
+    h2 {
+      font-size: 22px;
+      color: $headline-blue;
+      margin-bottom: 15px;
+      @include breakpoint($end-small) {
+        font-size: 28px;
+        margin-bottom: 24px;
+      }
+    }
+  }
+
+  .job-location ul, .job-category ul, .job-keyword ul, .sitemap-cp ul {
+    list-style: none;
+    margin: 0 0 40px 0;
+
+		li {
+			display: inline-block;
+			width: 100%;
+      font-size: 16px;
+
+      &:not(:last-of-type) {
+        margin-bottom: 8px;
+      }
+
+      b {
+        font-weight: $weight-bold;
+        color: $headline-blue;
+      }
+		}
+
+    @include breakpoint($mid-small) { // could use mid-small
+      -webkit-column-count: 2;/* Chrome, Safari, Opera */
+      -moz-column-count: 2;/* Firefox */
+      column-count: 2;
+    }
+
+    @include breakpoint($end-small) { // could use end-mall
+      -webkit-column-count: 3;/* Chrome, Safari, Opera */
+      -moz-column-count: 3;/* Firefox */
+      column-count: 3;
+    }
+  }
+} // end sitemap page
+
+
+/* =================================================================
+Secondary page styles
+================================================================= */
+
+#error,
+#Unsubscribe,
+#JobAlertVerify {
+
+    #content {
+
+  	.max-width-wrapper {
+  		padding: 30px 20px 40px;
+  		@include breakpoint($end-small) {
+  			padding: 50px 20px 60px;
+  		}
+  			h1 {
+  				font-size: 30px;
+          color: $headline-blue;
+          margin-bottom: 10px;
+  				@include breakpoint($end-small) {
+  					font-size: 50px;
+  				}
+  			}
+
+  			p {
+          font-size: 16px;
+  			}
+
+  			a {
+  				 color: #0000FF;
+  				 text-decoration: underline;
+  			}
+
+  	}
+  }
 }
 
 /* =================================================================
@@ -1702,99 +3670,105 @@ maintenance page
 /* =================================================================
 social share - need to update icon references to match shared resources
 ================================================================= */
-.social-share {
-    ul {
-        list-style: none;
-        margin: 0;
+#social-share {
+  max-width: 450px;
+  position: relative;
+  margin-bottom: 37px;
+
+  .social-share {
+    @include breakpoint(900px) {
+      position: absolute;
+      width: 100%;
+      top: 0;
+      top: -94px;
+      left: 430px;
     }
 
-    li:not(.expandable) {
-        display: inline-block;
+    #advanced-job & {
+      @include breakpoint(868px) {
+        position: absolute;
+        width: 100%;
+        top: 0;
+        top: -86px;
+        left: 0px;
+      }
+    }
+  }
+
+  h2 {
+
+    font-size: 18px;
+    font-weight: $weight-bold;
+    height: 30px;
+    padding: 4px 0;
+    margin: auto;
+    text-align: left;
+  }
+
+
+	ul {
+		list-style: none;
+		margin: 0;
+		display: inline-block;
+		-webkit-appearance: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    #advanced-job & {
+      padding: 0 20px;
+    }
+	}
+
+	li {
+		display: flex;
+    border-right: 1px solid #e0e0e0;
+    height: 50px;
+    width: 20%;
+	}
+
+	a {
+		display: block;
+	  text-indent: -999em;
+	  overflow: hidden;
+	  text-align: left;
+	  background: center / contain no-repeat;
+	  width: 30px;
+	  height: 30px;
+    margin: auto;
+
+
+		 &.facebook {
+       background-position: -4px 2px !important;
+
+	  }
+	}
+
+
+}
+
+#social-share {
+	 a {
+    &.linkedin {
+      // Leaving the argument "()" blank will render the default brand colors for each icon
+      @include icon-bg-linkedin(#555555, transparent);
+    }
+    &.twitter {
+			@include icon-bg-twitter(#555555, transparent);
+    }
+    &.facebook {
+			@include icon-bg-facebook(#ffffff, transparent);
+      background-color: #555555;
+      border-radius: 36px;
+
+	  }
+    &.email {
+			@include icon-bg-email(#555555, transparent);
     }
 
-    .expandable ul {
-        .js & {
-            display: none;
-        }
-    }
-
-    a:not(.share-more) {
-        display: block;
-        height: 32px;
-        overflow: hidden;
-        text-align: left;
-        text-indent: -9999em;
-        width: 32px;
-
-        &:hover, &:focus {
-            box-shadow: 1px 1px 2px 0 rgba(0,0,0,.5);
-        }
-    }
-
-    #social-share-fields {
-        p {
-            label {
-                display: block;
-            }
-        }
-    }
+  } // End of anchor tag for social share
 }
 
-.social-sprite, .social-share a.apnacircle:not(.share-more), .social-share a.email:not(.share-more), .social-share a.facebook:not(.share-more), .social-share a.googleplus:not(.share-more), .social-share a.linkedin:not(.share-more), .social-share a.pinterest:not(.share-more), .social-share a.tumblr:not(.share-more), .social-share a.twitter:not(.share-more), .social-share a.viadeo:not(.share-more), .social-share a.xing:not(.share-more), .social-share a.youtube:not(.share-more) {
-    background: url("../../shared/img/social.png") no-repeat
-}
-
-.social-share a:not(.share-more).apnacircle {
-    background-position: 0 0
-}
-
-.social-share a:not(.share-more).email {
-    background-position: -32px 0
-}
-
-.social-share a:not(.share-more).facebook {
-    background-position: -64px 0
-}
-
-.social-share a:not(.share-more).googleplus {
-    background-position: -96px 0
-}
-
-.social-share a:not(.share-more).linkedin {
-    background-position: -128px 0
-}
-
-.social-share a:not(.share-more).pinterest {
-    background-position: -160px 0
-}
-
-.social-share a:not(.share-more).tumblr {
-    background-position: -192px 0
-}
-
-.social-share a:not(.share-more).twitter {
-    background-position: -224px 0
-}
-
-.social-share a:not(.share-more).viadeo {
-    background-position: -256px 0
-}
-
-.social-share a:not(.share-more).xing {
-    background-position: -288px 0
-}
-
-.social-share a:not(.share-more).youtube {
-    background-position: -320px 0
-}
-
-.social-share a.renren:not(.share-more) {
-    background: url("../../shared/img/social/renren.png") no-repeat
-}
-
-.social-share a.weibo:not(.share-more) {
-    background: url("../../shared/img/social/weibo.png") no-repeat
-}
 
 /* =================================================================
 social media - need to update icon references to match media resources
@@ -2170,6 +4144,7 @@ Advanced Job Description SASS - Glassdoor Module - new API
 
     img {
         max-width: 100%;
+        max-width: 300px;
     }
 }
 
@@ -2203,6 +4178,7 @@ section[data-save-jobs="true"] #search-results-list,
             flex-shrink: 0;
 
             &:hover, &:focus {
+
                 opacity: 1;
                 outline: none;
                 text-decoration: underline;
@@ -2291,3 +4267,1902 @@ Search Map Styles
         }
     }
 }
+
+
+
+// =================================================================
+//
+// Advanced Job Details (AJD) Template
+//
+// Documentation and intructions https://github.com/tmpworldwide/AJD-Template
+//
+// =================================================================
+
+
+
+
+// AJD icons import
+// ==========================
+
+@import '../../3461/shared/scss/ajd-icons'; // required
+
+
+// ===========================================
+// Variables
+// ===========================================
+
+
+// breakpoints
+$mid-small: 550px;
+$end-small: 800px;
+$max-width: 1000px;
+
+
+
+// wrapper widths
+$default-size: 1000px;
+
+
+
+// AJD Variables
+// ==========================
+
+$qfacts-icon-color: #004E8A; // Blue
+$benefits-icon-color:  #004E8A; // Blue
+
+
+// ===========================================
+// Mixins
+// ===========================================
+
+@mixin breakpoint($width) {
+    @media screen and (min-width: $width) {
+        @content
+    }
+}
+
+@mixin wai {
+	border: 0 !important;
+	border-color: transparent !important;
+	background: transparent !important;
+	position: absolute !important;
+    height: 1px !important;
+    width: 1px !important;
+	margin: -1px !important;
+	padding: 0 !important;
+    overflow: hidden !important;
+	clip-path: inset(50%) !important;
+    clip: rect(1px, 1px, 1px, 1px) !important;
+    white-space: nowrap !important;
+}
+
+@mixin flexbox {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flexbox;
+	display: flex;
+}
+
+@mixin flexbox-center {
+    -webkit-flex-direction: row;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -webkit-justify-content: space-around;
+    -ms-flex-pack: distribute;
+    justify-content: space-around;
+    -webkit-align-content: center;
+    -ms-flex-line-pack: center;
+    align-content: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+
+@mixin flexbox-auto {
+    -webkit-order: 0;
+    -ms-flex-order: 0;
+    order: 0;
+    -webkit-flex: 0 1 auto;
+    -ms-flex: 0 1 auto;
+    flex: 0 1 auto;
+    -webkit-align-self: auto;
+    -ms-flex-item-align: auto;
+    align-self: auto;
+}
+
+@mixin clearfix {
+    &:after, &:before {
+        content: " ";
+        display: table;
+        clear: both;
+        height: 0;
+    }
+}
+
+
+
+// ===========================================
+// CUSTOM SVG Mixins
+// ===========================================
+
+
+// Quick Facts icons
+.ico-travel {
+	@include ico-travel(#84bd00);
+}
+
+.ico-level {
+	@include ico-level(#ca1187);
+}
+
+.ico-salary {
+	@include ico-salary($qfacts-icon-color);
+}
+
+.ico-time {
+    @include ico-time(#00b0b9);
+}
+
+
+
+// Benefits/Rewards icons
+
+// You may wish to deleteor comment out any icons you are not using to save space in the compiled css
+// If you need to make a custom icon you can follow the directions found here: https://github.com/tmpworldwide/tb-ajd-template#add-unique-svg-images
+
+.ico-401k {
+	@include ico-401k($benefits-icon-color);
+}
+
+
+
+
+.ico-awards {
+	@include ico-awards($benefits-icon-color);
+}
+
+.ico-adoption-cost-benefit {
+	@include ico-adoption-cost-benefit($benefits-icon-color);
+}
+
+.ico-amenities {
+	@include ico-amenities($benefits-icon-color);
+}
+
+.ico-balance {
+	@include ico-balance($benefits-icon-color);
+}
+
+.ico-bars-no-arrow {
+	@include ico-bars-no-arrow($benefits-icon-color);
+}
+
+.ico-bars-curved-arrow {
+	@include ico-bars-curved-arrow($benefits-icon-color);
+}
+
+.ico-bars-straight-arrow {
+	@include ico-bars-straight-arrow($benefits-icon-color);
+}
+
+.ico-cafeteria {
+	@include ico-cafeteria($benefits-icon-color);
+}
+
+.ico-child-care-subsidy {
+	@include ico-child-care-subsidy($benefits-icon-color);
+}
+
+.ico-collaboration {
+	@include ico-collaboration($benefits-icon-color);
+}
+
+.ico-company-store {
+	@include ico-company-store($benefits-icon-color);
+}
+
+.ico-compensation {
+	@include ico-compensation(#84bd00);
+}
+
+.ico-healthcare {
+	@include ico-healthcare(#00bdf2);
+}
+
+.ico-life-and-disability-insurance {
+	@include ico-life-and-disability-insurance(#ad5eb5);
+}
+
+.ico-wellness-programs {
+	@include ico-wellness-programs(#c6007e);
+}
+
+
+
+
+// ===========================================
+// Extends
+// ===========================================
+
+// list reset remove bullts and spacing
+%list-reset {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+
+// ===========================================
+// CSS Animations
+// ===========================================
+
+@keyframes popin {
+    0% {
+        display: block;
+        transform: scale(0);
+        transform-origin: center center;
+    }
+    100% {
+        transform: scale(1);
+        transform-origin: center center;
+    }
+}
+
+
+// Animate Career Path
+
+@keyframes fadein {
+    from {
+        opacity:0;
+    }
+    to {
+        opacity:1;
+    }
+}
+
+
+// ===========================================
+// General Classes
+// ===========================================
+
+.wai {
+	border: 0 !important;
+	border-color: transparent !important;
+	background: transparent !important;
+	position: absolute !important;
+    height: 1px !important;
+    width: 1px !important;
+	margin: -1px !important;
+	padding: 0 !important;
+    overflow: hidden !important;
+	clip-path: inset(50%) !important;
+    clip: rect(1px, 1px, 1px, 1px) !important;
+    white-space: nowrap !important;
+}
+
+// responsive videos and iframes
+/////////////////////// may not need this test later
+.embed-container {
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+    max-width: 100%;
+}
+.embed-container embed,
+.embed-container iframe,
+.embed-container object {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+
+// this style may conflict with other global styles. feel free to remove it.
+img {
+    max-width: 100%;
+}
+
+.back-to-ajd-nav {
+    &__a {
+        background: #666 no-repeat center center/25px;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20.26 10.239'%3E %3Cpath fill='none' stroke='#{svg-color-replace("#fff")}' stroke-linecap='round' stroke-linejoin='round' d='M.67 9.66l9.5-9 9.5 9'/%3E %3C/svg%3E");
+        border-radius: 50%;
+        bottom: -1em;
+        display: block;
+        height: 50px;
+        left: 50%;
+        margin-left: -25px;
+        opacity: 0;
+        overflow: hidden;
+        position: fixed;
+        right: 50%;
+        text-indent: -999em;
+        width: 50px;
+        z-index: 10;
+
+        &:focus {
+            background-color: rgba(102, 102, 102, 0.7);
+            bottom: 1em;
+            opacity: 1;
+        }
+    }
+}
+
+
+
+
+.ajd_section {
+    margin: 0 20px 0; // spacing after each section
+    padding: 40px 0;
+    border-bottom: 1px solid #b4b4b4;
+    @include breakpoint($end-small) {
+      padding: 60px 0;
+    }
+
+    &__heading { // .ajd_section__heading
+        // Add styles that will affect the headlines of each section
+        text-align: center;
+        color: #00447c;
+        font-weight: $weight-normal;
+        font-size: 28px;
+        margin-bottom: 16px;
+        @include breakpoint($end-small) {
+          text-align: left;
+          font-size: 42px;
+        }
+    }
+
+    &__intro {
+      font-size: 14px;
+      color: #555555;
+      line-height: 1.7;
+      margin-bottom: 50px;
+      @include breakpoint($end-small) {
+        font-size: 16px;
+      }
+    }
+}
+
+
+
+// Apply for this job buttons
+.ajd_btn__apply {
+    // Add your styles here
+}
+
+// Save job for later buttons
+.ajd_btn__save {
+    // Add your styles here
+}
+
+// Refer a friend button
+.ajd_btn__referred {
+    // Add your styles here
+}
+
+
+
+
+
+
+
+
+
+// ===========================================
+// Header and In page navigation
+// ===========================================
+
+.ajd_header {
+  // This is the container of the entire part of the AJD that becomes sticky
+  // in includes the in page navigation
+  // margin-bottom: 30px;
+  // @include breakpoint($end-small) {
+  //   margin-bottom: 70px;
+  // }
+  &.scroll-to-fixed-fixed {
+    // Add styles here for when the header is sticky
+    // If you uncomment the styles below you will ahev the sticky span across
+    // the whole browser
+    left: 0 !important;
+    width: 100% !important;
+    box-shadow: 0 4px 2px -2px rgba(0,0,0,0.5);
+    background-color: #fff; // replace or edit with your styles
+    @include breakpoint($end-small) {
+      top: 40px !important;
+    }
+  }
+
+  &__content {
+    //.ajd_header__content
+    padding: 25px 20px 30px;
+    max-width: 1180px;
+    margin: 0 auto;
+    @include breakpoint(500px) {
+      padding: 25px 20px 41px;
+    }
+    @include breakpoint($end-small) {
+      display: flex;
+      padding: 50px 20px 0;
+      justify-content: space-between;
+    }
+  }
+
+  &__job-heading {
+    //.ajd_header__job-heading
+  }
+
+  &__job-title {
+    // .ajd_header__job-title
+    // add styles to adjust the job title
+    line-height: 1;
+    font-size: 28px;
+    color: #002d72;
+    margin-bottom: 20px;
+    @include breakpoint($end-small) {
+      margin-right: 40px;
+    }
+    @include breakpoint(975px) {
+      font-size: 42px;
+      margin-bottom: 17px;
+    }
+  }
+
+  &__location {
+    // .ajd_header__location
+    text-transform: uppercase;
+    font-size: 16px;
+    display: inline-block;
+
+    &:after {
+      content: "|";
+      margin: 0 2px 0 8px;
+    }
+    @include breakpoint($end-small) {
+      font-size: 18px;
+    }
+  }
+
+  &__id {
+    font-size: 16px;
+    @include breakpoint($end-small) {
+      font-size: 18px;
+    }
+
+    b {
+      text-transform: uppercase;
+
+      &:after {
+        content: ":";
+      }
+    }
+  }
+
+  &__job-buttons {
+    // ..ajd_header__job-buttons
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    // margin-bottom: 30px;
+    @include breakpoint(500px) {
+      justify-content: flex-start;
+      // margin-bottom: 41px;
+    }
+    @include breakpoint($end-small) {
+      margin: 0;
+    }
+
+    .job-apply {
+      background: $headline-blue;
+      text-align: left;
+      width: 142px;
+      padding: 13px 10px 10px 23px;
+      color: #fff;
+      border-radius: 6px;
+      font-size: 16px;
+      font-weight: 500;
+      height: 45px;
+      position: relative;
+      transition: 0.3s;
+      @include breakpoint(500px) {
+        margin-right: 20px;
+      }
+      @include breakpoint(975px) {
+        text-align: center;
+        height: 60px;
+        width: 185px;
+        padding: 20px 10px 10px 0;
+      }
+
+      &:after {
+        content: " ";
+        display: inline-block;
+        background: url("../v2_0/img/white-arrow.png") no-repeat;
+        background-size: contain;
+        height: 14px;
+        width: 12px;
+        position: absolute;
+        margin-left: 11px;
+        top: 15px;
+        @include breakpoint(975px) {
+          top: 22px;
+        }
+      }
+
+      &:focus,
+      &:hover {
+        background: $hover-blue;
+        transition: 0.3s;
+      }
+    }
+
+    .save-jobs-btn {
+      background: #158ae6;
+      text-align: left;
+      width: 142px;
+      padding: 11px 10px 10px 23px;
+      color: #fff;
+      border-radius: 6px;
+      font-size: 16px;
+      font-weight: 500;
+      height: 45px;
+      position: relative;
+      transition: 0.3s;
+      @include breakpoint(975px) {
+        text-align: center;
+        height: 60px;
+        width: 185px;
+        padding: 12px 10px 10px 0;
+      }
+
+      &:after {
+        content: " ";
+        display: inline-block;
+        background-size: contain;
+        background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 14'%3E%3Cpath d='M7 11.1l3.3 2.4c.5.4 1.2-.1 1-.7L10 8.9l3.2-2.3c.5-.4.3-1.2-.4-1.2h-4l-1.3-4c-.2-.6-1.1-.6-1.3 0l-1.3 4h-4c-.7 0-.9.8-.4 1.2l3.2 2.3-1.3 3.9c-.2.6.5 1.1 1 .7L7 11.1z' clip-rule='evenodd' fill='none' stroke='%23fff' stroke-width='.5' stroke-miterlimit='10'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        height: 20px;
+        width: 20px;
+        position: absolute;
+        margin-left: 11px;
+        top: 10px;
+        @include breakpoint(975px) {
+          top: 18px;
+        }
+      }
+
+      &:focus,
+      &:hover {
+        background: $blue;
+        transition: 0.3s;
+      }
+
+      &.saved {
+        &:after {
+          content: " ";
+          display: inline-block;
+          background-size: contain;
+          background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 14'%3E%3Cpath fill='none' d='M-5-4h24v24H-5z'/%3E%3Cpath d='M7 11.1l3.3 2.4c.5.4 1.2-.1 1-.7L10 8.9l3.2-2.3c.5-.4.3-1.2-.4-1.2h-4l-1.3-4c-.2-.6-1.1-.6-1.3 0l-1.3 4h-4c-.7 0-.9.8-.4 1.2l3.2 2.3-1.3 3.9c-.2.6.5 1.1 1 .7L7 11.1z' fill-rule='evenodd' clip-rule='evenodd' fill='%23ffffff'/%3E%3C/svg%3E ");
+          background-repeat: no-repeat;
+          height: 20px;
+          width: 20px;
+          position: absolute;
+          margin-left: 11px;
+          top: 10px;
+          @include breakpoint(975px) {
+            top: 18px;
+          }
+        }
+      }
+    }
+  }
+}
+
+// in page navigation
+// =================================
+.ajd_navigation {
+  max-width: 1140px;
+  @include breakpoint($end-small) {
+    margin: 50px auto 0;
+
+  }
+
+  .scroll-to-fixed-fixed & {
+    // On small screen sizes the in page navigation will only be visable when
+    // not scrolled down the page. When you scroll the in page navigation will
+    // be hidden in order to save screen space
+    display: none;
+    @media screen and (min-width: 500px) and (min-height: 600px) {
+      // These numbers must stay to match the script
+      display: none;
+    }
+    @include breakpoint($end-small) {
+      display: block;
+    }
+  }
+
+  &__ul {
+    // .ajd_navigation__ul
+    @extend %list-reset;
+    text-align: center;
+    width: 100%;
+    margin: 0 auto;
+    @include breakpoint($end-small) {
+      // flexbox postions the links evenly and allows them to be
+      // centered if they need to break to the next line
+      @include flexbox;
+      @include flexbox-center;
+      border: 1px solid #b4b4b4;
+      height: 96px;
+    }
+  }
+
+  &__li {
+    // .ajd_navigation__li
+    border-bottom: 1px solid #b4b4b4;
+    border-width: 0 0 1px 0;
+    @include breakpoint($end-small) {
+      @include flexbox-auto;
+      border-bottom: none;
+      width: calc(100% / 6);
+      height: 96px;
+    }
+
+    &:first-of-type {
+      border-top: 1px solid #b4b4b4;
+      @include breakpoint($end-small) {
+        border-top: none;
+      }
+    }
+
+    &:not(:last-of-type) {
+      @include breakpoint($end-small) {
+        border-right: 1px solid #b4b4b4;
+      }
+    }
+  }
+
+  &__a {
+    // .ajd_navigation__a
+    color: #242424;
+    text-decoration: none;
+    display: block;
+    padding: 8px 0;
+    font-weight: $weight-medium;
+    font-size: 15px;
+    position: relative;
+    @include breakpoint($end-small) {
+      padding: 39px 0;
+    }
+
+    &:focus,
+    &:hover {
+      color: $headline-blue;
+    }
+
+    .active & {
+      color: $headline-blue;
+      border-bottom: 5px solid $headline-blue;
+      @include breakpoint($end-small) {
+        border-bottom: none;
+        &:after {
+          content: " ";
+          display: block;
+          height: 5px;
+          width: calc(100% + 2px);
+          background: #005aa1;
+          position: absolute;
+          bottom: -4px;
+          left: -1px;
+          right: 0px;
+
+        }
+      }
+
+
+      @media screen and (min-width: 500px) and (min-height: 600px) {
+        // These numbers must stay to match the script
+        // the inpage navigation does not scroll with you on mobile these
+        // styles only need to be added on larger screen sizes
+      }
+
+
+    }
+  }
+}
+
+
+
+
+// ===========================================
+// Overview
+// ===========================================
+
+.ajd_overview {
+  // padding: 20px 0 40px;
+  // margin-top: 10px;
+    @include breakpoint($end-small) {
+      // padding: 40px 0 40px;
+      // margin-top: 40px;
+    }
+
+    &__heading {
+      @include breakpoint($end-small) {
+        margin-bottom: 30px;
+      }
+    }
+
+    &__quick-facts { // .ajd_overview__quick-facts
+        // Parent of quick-fact
+        @extend %list-reset;
+        @include flexbox;
+        @include flexbox-center;
+        @include flexbox-auto;
+        justify-content: center;
+    }
+
+    &__quick-fact { // .ajd_overview__quick-fact
+        // Each quickfact inside of the the overview
+        @include flexbox;
+        @include flexbox-center;
+        @include flexbox-auto;
+        margin-bottom: 10px;
+        font-size: 13px;
+        color: #222222;
+        @include breakpoint($end-small) {
+          font-size: 16px;
+        }
+
+        &:not(:last-child) {
+            margin-right: 30px;
+        }
+    }
+
+    &__quick-fact-ico { //.ajd_overview__quick-fact-ico
+        // Quick Fact icons
+        width: 40px;
+        height: 40px;
+        margin-right: 10px;
+        display: inline-block;
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    &__about-job {
+      font-size: 14px;
+      color: #555555;
+      line-height: 1.7;
+      margin-bottom: 50px;
+      @include breakpoint($end-small) {
+        font-size: 16px;
+      }
+    }
+}
+
+// Glassdoor
+// ========================
+
+.ajd-glassdoor {
+
+    &__icon { //.ajd-glassdoor__icon
+		width: 100%;
+		max-width: 300px;
+		display: block;
+    }
+
+	&__link { // .ajd-glassdoor__link
+		display: block;
+	}
+
+	.error {
+	    background-color: red;
+	    color: #fff;
+
+	    * {
+	        color: inherit;
+	    }
+	}
+}
+
+// ===========================================
+// Success profile
+// ===========================================
+
+.ajd_success-profile {
+    &__intro { // .ajd_success-profile__intro
+        margin: auto;
+
+        font-size: 14px;
+        color: #555555;
+        line-height: 1.7;
+        margin-bottom: 50px;
+        @include breakpoint($end-small) {
+          font-size: 16px;
+        }
+
+    }
+
+    &__heading {
+      font-size: 28px;
+      @include breakpoint($end-small) {
+        font-size: 42px;
+        margin-bottom: 25px;
+      }
+    }
+}
+
+
+// ===========================================
+// AJD Graph
+// ===========================================
+
+.ajd_graph {
+    margin: auto;
+    max-width: $default-size * .5; // replace or edit with your styles
+
+    &__main-skils { // .ajd_graph__main-skills
+        // main ul for graph
+        @extend %list-reset;
+    }
+
+    &__main-skill { // .ajd_graph__main-skill
+        // each li for graph
+        position: relative;
+        margin-top: 15px;
+    }
+
+    &__label { // .ajd_graph__label
+        // If you need to have the graph label inside the percent bar
+        // left: 10px;
+        // position: absolute;
+        // z-index: 2;
+    }
+
+    &__percent { // .ajd_graph__percent
+        display: block;
+        text-align: right;
+        transition: all 2s ease-in-out;
+        background: grey; // replace or edit with your styles
+        color: white; // replace or edit with your styles
+        width: 0; // If Javascript is active then reset all percent widths in graph to zero
+
+		.active &,
+		.no-js & {
+			// if js is working then an active state will apply when visually in the
+			// viewport, when that happens the with will animate to this size
+			// If you want to only active once change "active" to just "actived-once"
+			// If JS is not loading then it will fall back to this width
+			&.one {
+				width: 10%;
+			}
+
+			&.two {
+				width: 20%;
+			}
+
+			&.three {
+				width: 30%;
+			}
+
+			&.four {
+				width: 40%;
+			}
+
+			&.five {
+				width: 50%;
+			}
+
+			&.six {
+				width: 60%;
+			}
+
+			&.seven {
+				width: 70%;
+			}
+
+			&.eight {
+				width: 80%;
+			}
+
+			&.nine {
+				width: 90%;
+			}
+
+			&.ten {
+				width: 100%;
+			}
+		}
+    }
+
+    // Scale under graph
+    &__scale { // .ajd_graph__scale
+      // container for the 0 to 10 scale at the bottom of the graph
+    }
+
+    &__smallest { // .ajd_graph__smallest
+      // Noramlly 0
+    }
+
+    &__largest { // .ajd_graph__largest
+      // Normally 10
+      float: right;
+    }
+    // End Scale under graph
+
+    // Sub skills
+    &__sub-skills { // .ajd_graph__sub-skills
+        // parent of skills list under the graph
+        @extend %list-reset;
+        @include flexbox;
+        @include flexbox-center;
+    }
+
+    &__sub-skill { // .ajd_graph__sub-skill
+        // each subskill li
+        @include flexbox-auto;
+        padding: 4px;
+        margin-top: 15px;
+        background: grey; // replace or edit with your styles
+        color: white; // replace or edit with your styles
+
+        &:not(:last-child) {
+            margin-right: 10px;
+        }
+    }
+}
+
+
+
+
+
+
+
+
+// ===========================================
+// AJD Trait Cricle
+// ===========================================
+
+// AJD Trait Circle using Custom Imports Script
+.trait-circle__graph {
+    max-width: 188px;
+    width: 100%;
+    margin-right: 10px;
+    @include breakpoint(600px) {
+      max-width: 230px;
+    }
+    @include breakpoint($end-small) {
+      max-width: 280px;
+    }
+}
+
+// resets tooltip
+#js-ci-chart__tooltip[style*="visibility: hidden"] {
+    left: 0 !important;
+    top: 0 !important;
+
+}
+
+.trait-circle__legend {
+    list-style: none;
+    padding: 0;
+    display: inline-block;
+    text-align: left;
+    @include breakpoint(500px) {
+    @include flexbox;
+    -webkit-flex-direction: row;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -webkit-align-content: center;
+    -ms-flex-line-pack: center;
+    align-content: center;
+    -webkit-align-items: start;
+    -ms-flex-align: start;
+    align-items: start;
+    justify-content: flex-start;
+
+  }
+
+
+  // Technology
+  [data-category-id~="19627"] & {
+      width: 40%;
+      @include breakpoint(500px) {
+      width: 61%;
+      max-width: 300px;
+    }
+    @include breakpoint(900px) {
+      width: 67%;
+      max-width: 570px;
+    }
+    @include breakpoint(650px) {
+      max-width: 450px;
+    }
+    @include breakpoint($end-small) {
+      max-width: 664px;
+    }
+  }
+}
+
+.trait-circle__item {
+    margin: 0 0 20px 0;
+    position: relative;
+    padding: 0 0 0 30px;
+    display: block;
+    font-size: 11px;
+    color: #333333;
+    font-weight: $weight-medium;
+    @include breakpoint(500px) {
+      width: calc(100% / 2);
+    }
+    @include breakpoint(650px) {
+      width: calc(100% / 3);
+      max-width: 450px;
+    }
+
+    @include breakpoint($end-small) {
+      font-size: 15px;
+    }
+    @include breakpoint(900px) {
+      font-size: 18px;
+      margin-bottom: 0;
+      &:first-of-type {
+        margin-bottom: 43px;
+      }
+    }
+}
+
+.trait-circle__legend .js-ci-pie-chart__data-icon {
+    position: absolute;
+    margin: 0 0 0 -24px;
+    width: 17px;
+    height: 17px;
+}
+
+.ci-pie-chart {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1000px;
+  margin: auto;
+}
+
+.ci-pie-chart__center-text {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+
+
+// ===========================================
+// Glassdoor quotes
+// ===========================================
+
+.ajd_glassdoor {
+  border-bottom: none;
+
+  &__heading {
+    text-align: center;
+  }
+
+  blockquote {
+    text-align: center;
+    font-size: 15px;
+    color: #222222;
+    font-weight: $weight-bold;
+    line-height: 1.5;
+    max-width: 940px;
+    margin: 0 auto;
+    @include breakpoint($end-small) {
+      font-size: 36px;
+    }
+
+    &:before {
+      content: " ";
+      display: block;
+      background: url("../v2_0/img/quote-mark.png") no-repeat;
+      background-size: contain;
+      width: 42px;
+      height: 29px;
+      margin: 0 auto 20px;
+    }
+  }
+
+  cite {
+    display: block;
+    color: #028ae2;
+    font-size: 15px;
+    font-weight: $weight-medium;
+    @include breakpoint($end-small) {
+      font-size: 21px;
+    }
+
+    &:before {
+      content: " ";
+      display: block;
+      height: 5px;
+      width: 50%;
+      background: #028ae2;
+      margin: 20px auto;
+      max-width: 200px;
+    }
+  }
+
+  .quote-slider {
+    position: relative;
+
+    .slick-arrow {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+    }
+
+    .slick-next {
+      background: url("../v2_0/img/quote-slider-next.png") no-repeat;
+      background-size: contain;
+      top: 44%;
+      right: 0;
+      transform: translateX(0) translateY(-50%);
+      z-index: 99;
+      font-size: 0;
+    }
+
+    .slick-prev {
+      background: url("../v2_0/img/quote-slider-prev.png") no-repeat;
+      background-size: contain;
+      top: 44%;
+      left: 0;
+      transform: translateX(0) translateY(-50%);
+      z-index: 99;
+      font-size: 0;
+    }
+  }
+}
+
+.glassdoor-ajd-logo {
+  margin: 0 20px;
+  border-bottom: 1px solid #b4b4b4;
+  padding-bottom: 40px;
+  @include breakpoint($end-small) {
+    padding-bottom: 60px;
+  }
+}
+
+
+// ===========================================
+// Employee Spotlight
+// ===========================================
+
+.ajd_spotlight {
+    border-top: 1px solid #b4b4b4;
+    // padding: 30px 0 0;
+    @include breakpoint($end-small) {
+      // padding: 70px 0 60px;
+    }
+
+  &__heading {
+    font-size: 28px;
+    margin-bottom: 50px;
+    text-align: center;
+    @include breakpoint($end-small) {
+      font-size: 42px;
+    }
+  }
+
+  &__list {
+    @include breakpoint($end-small) {
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+
+  &__item {
+
+    @include breakpoint($end-small) {
+      width: 49%;
+    }
+
+    &:not(:last-of-type) {
+      margin-bottom: 30px;
+      @include breakpoint($end-small) {
+        margin-bottom: 0;
+      }
+    }
+
+    button {
+      padding: 0;
+      width: 100%;
+      position: relative;
+      img {
+        width: 100%;
+      }
+
+      &:after {
+        content: " ";
+        position: absolute;
+        background: url(../v2_0/img/play-button.png) no-repeat;
+        width: 60px;
+        height: 60px;
+        background-size: contain;
+        display: block;
+        top:50%;
+        left:50%;
+        transform: translateX(-50%) translateY(-50%);
+      }
+    }
+  }
+
+  &__textblock {
+    padding: 20px 0;
+
+    @include breakpoint($end-small) {
+      max-width: 415px;
+      margin: 0 auto;
+      padding: 30px 0;
+    }
+
+    > div {
+      text-align: center;
+    }
+  }
+
+  &__title {
+    padding: 0 20px;
+    font-size: 22px;
+    color: #222222;
+    font-weight: $weight-medium;
+    line-height: 1;
+    text-align: center;
+    margin-bottom: 30px;
+  }
+
+  &__text {
+    text-align: center;
+    font-size: 15px;
+    line-height: 1.5;
+    margin-bottom: 15px;
+    @include breakpoint($end-small) {
+      font-size: 16px;
+    }
+  }
+
+  &__link {
+    text-align: center;
+    color: $headline-blue;
+    font-weight: $weight-bold;
+
+    &:after {
+      content: " ";
+      border: solid #005aa1;
+      border-width: 0 3px 3px 0;
+      display: inline-block;
+      padding: 3px;
+      transform: rotate(-45deg);
+      -webkit-transform: rotate(-45deg);
+      margin-left: 2px;
+    }
+
+  }
+
+
+
+}
+
+
+// ===========================================
+// AJD success
+// ===========================================
+
+.ajd_success {
+
+
+  &__heading {
+    font-size: 28px;
+    text-align: center;
+    @include breakpoint($end-small) {
+      font-size: 42px;
+    }
+  }
+
+  &__intro {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 15px;
+    @include breakpoint($end-small) {
+      font-size: 16px;
+      margin-bottom: 60px;
+    }
+  }
+
+  &__card {
+    max-width: 240px;
+    margin: 0 auto;
+    @include breakpoint(530px) {
+      display: flex;
+      justify-content: space-between;
+      max-width: 530px;
+      align-items: center;
+    }
+    @include breakpoint($end-small) {
+      max-width: 840px;
+    }
+  }
+
+  &__textblock {
+
+  }
+
+  &__img {
+    max-width: 230px;
+    margin: 0 auto 25px;
+    @include breakpoint(530px) {
+      margin: 0 20px 0 0;
+    }
+    @include breakpoint($end-small) {
+      max-width: 300px;
+    }
+  }
+
+  &__title {
+    text-transform: uppercase;
+    font-weight: $weight-medium;
+    margin-bottom: 15px;
+    font-size: 17px;
+    @include breakpoint($end-small) {
+      font-size: 22px;
+    }
+  }
+
+  &__text {
+    font-size: 14px;
+    margin-bottom: 15px;
+    @include breakpoint($end-small) {
+      font-size: 18px;
+    }
+  }
+
+  &__link {
+    font-size: 13px;
+    font-weight: $weight-bold;
+    color: $headline-blue;
+    @include breakpoint($end-small) {
+      font-size: 16px;
+    }
+
+    &:after {
+      content: " ";
+    border: solid #005aa1;
+    border-width: 0 3px 3px 0;
+    display: inline-block;
+    padding: 2px;
+    transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+    margin-left: 2px;
+    @include breakpoint($end-small) {
+      padding: 3px;
+    }
+    }
+  }
+}
+
+.success-slider {
+
+  @include breakpoint(1200px) {
+    margin-bottom: 50px;
+  }
+
+  .slick-dots {
+    display: flex;
+    justify-content: center;
+    margin: 40px 0 0;
+    padding: 1rem 0;
+    list-style-type: none;
+
+    @include breakpoint(1200px) {
+      left: 74%;
+      position: absolute;
+      bottom: 0px;
+      transform: translateX(-50%) translateY(0);
+      margin: 0;
+    }
+
+
+    li {
+      margin: 0 0.25rem;
+    }
+
+    button {
+      display: block;
+      width: 12px;
+      height: 12px;
+      padding: 0;
+      border: none;
+      border-radius: 100%;
+      background-color: #005ba1;
+      text-indent: -9999px;
+
+    }
+
+    li.slick-active button {
+      background-color: #555555;
+
+    }
+
+}
+}
+
+
+// ===========================================
+// Culture Points
+// ===========================================
+
+.ajd-culture-points {
+    background: #ccc; // replace or edit with your styles
+    padding: 30px;
+    @include clearfix;
+
+    &__item { // .ajd-culture-points__item
+        margin: 0 0 10px 17px; // Margin left added to make sure bullet appears correctly
+
+        @include breakpoint($end-small) {
+            width: calc(50% - 17px); // Needs to match the margin left of the items
+            float: left;
+        }
+    }
+}
+
+
+// ===========================================
+// Career Path - this EXAMPLE code. To create a career path use https://codepen.io/Vash007/full/KKweobw
+// ===========================================
+
+.career-path {
+    padding: 25px;
+    text-align: center;
+    margin-bottom: 25px;
+    font-family: inherit;
+    background-color: #FFFFFF;
+
+    @include breakpoint(800px) {
+        padding: 50px 0;
+        margin: 0;
+    }
+
+    >* {
+        margin-left: auto;
+        margin-right: auto;
+        max-width: 800px;
+    }
+
+    * {
+        box-sizing: border-box;
+        font-family: inherit;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+
+    &__heading {
+        font-size: 36px;
+        margin-bottom: 1em;
+    }
+
+    &__intro {
+        margin-bottom: 1em;
+    }
+
+    &__grid {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        padding: 0;
+        padding-top: 4px;
+    }
+
+    // primary row that contains all secondary rows
+    &__row {
+        width: 100%;
+        list-style: none;
+        position: relative;
+        margin-top: -4px;
+    }
+
+    .starting-row {
+        .career-path__title-container {
+            margin-top: 0;
+        }
+        .career-path__title-row>* {
+            min-height: 0;
+        }
+    }
+
+    // secondary row that contains only border segments
+    &__border-row {
+        display: flex;
+        justify-content: center;
+        margin: 0 auto;
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 1;
+        &.top {
+            top: 0;
+        }
+        &.bottom {
+            bottom: 0;
+        }
+    }
+
+    // secondary row that contains only job title columns
+    &__title-row {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        overflow: hidden;
+        // each column that contains a job title
+        >* {
+            min-height: 116px;
+            position: relative;
+        }
+    }
+    // wrapping div for job title
+    &__title-container {
+        color: #000;
+        display: inline-block;
+        position: relative;
+        z-index: 1;
+        margin: 24px auto 28px;
+        max-width: 100%;
+        background-color: #FFFFFF;
+    }
+    // job title
+    &__title {
+        display: inline-block;
+        padding: 8px 12px;
+        margin-top: 4px;
+        margin-bottom: 4px;
+        background-color: #FFFFFF;
+        color: #000000;
+    }
+    // arrow icon
+    .career-arrow {
+        display: block;
+        padding: 4px;
+        border-radius: 50%;
+        margin: 0 auto;
+        width: 24px;
+        height: 24px;
+        fill: #FFFFFF;
+        background-color: #035A8F;
+    }
+    // styles for borders
+    .vertical-border {
+        display: block;
+        position: absolute;
+        z-index: 0;
+        height: 50%;
+        left: 50%;
+        transform: translateX(-50%);
+        &.top {
+            top: 0;
+        }
+        &.bottom {
+            bottom: 0;
+            transform-origin: left;
+            transform: rotate(180deg) translateX(-50%);
+        }
+        &.full-height {
+            height: calc(100% + 4px);
+        }
+    }
+    .horizontal-border {
+        position: relative;
+    }
+    #border-pattern {
+        fill: #035A8F;
+    }
+    .hide-border {
+        visibility: hidden;
+    }
+
+    // Column widths
+    // so far there are 16 different widths
+    @for $i from 1 through 16 {
+        .width-#{$i}>* {
+            width: calc(100% / #{$i})
+        }
+    }
+
+    .REMOVE_CLASS {
+        width: auto;
+        height: auto;
+        color: red;
+        font-weight: bold;
+    }
+}
+
+
+// ===========================================
+// Quote
+// ===========================================
+
+.ajd_quote {
+    // entire quote section
+    background: #ccc; // replace or edit with your styles
+    padding: 30px 15px 15px 15px;
+
+    &__blockquote { // .ajd_quote__blockquote
+        text-align: center;
+        margin: 0;
+        padding: 0;
+
+        .js & {
+            opacity: 0;
+            transition: opacity 1s ease;
+        }
+
+        .active & {
+            // If you want to only active once change "active" to just "actived-once"
+            -webkit-animation: popin 1s forwards;
+            animation: popin 1s forwards;
+            opacity: 1;
+        }
+    }
+
+    &__text { // .ajd_quote__text
+        // the actual quote itself
+        position: relative;
+        display: inline-block;
+        line-height: 150%;
+
+        &:after, &:before {
+            // quotation marks
+            position: absolute;
+            opacity: 0.3;
+            font-size: 100px; // replace or edit with your styles
+        }
+
+        &:before {
+            // left quotation
+            content: "\201C" !important;
+            margin: 15px 0 0 -40px; // replace or edit with your styles
+        }
+
+        &:after {
+            // right quotation
+            content: "\201D" !important;
+            margin: 30px 0 0 10px; // replace or edit with your styles
+        }
+    }
+
+    &__citation { // ..ajd_quote__citation
+        // Normally whom the wuote is from
+        text-align: right;
+        width: 100%;
+        display: block;
+    }
+}
+
+
+// ===========================================
+// Trending
+// ===========================================
+
+.ajd_trending {
+
+    &__ul { // .ajd_trending__ul
+        @extend %list-reset;
+        @include clearfix;
+    }
+
+	&__li { // ..ajd_trending__li
+        @include clearfix;
+
+        @include breakpoint($end-small) {
+            // break to two columns
+            width: 48%;
+            float: left;
+
+            &:nth-child(odd) {
+                margin-right: 2%;
+                clear: left;
+            }
+        }
+    }
+
+	&__a { // .ajd_trending__a
+        // The hyperlink wraps the whole contents of the li
+    }
+
+	&__img { // .ajd_trending__img
+        // Trending image
+        max-width: 100%;
+        margin: auto;
+        display: block;
+
+        .ajd_trending__li--two-col & {
+            // Special styles to create the image next to the content
+            @include breakpoint($mid-small) {
+                width: 30%;
+                float: left;
+            }
+        }
+    }
+
+	&__content { // .ajd_trending__content
+        // wrapper next to the image
+
+        .ajd_trending__li--two-col & {
+            // Special styles to create the image next to the content
+            @include breakpoint($mid-small) {
+                width: 64%;
+                float: right;
+            }
+        }
+    }
+
+	&__content-heading { // .ajd_trending__heading
+        // Headline of each trending article
+        margin: 0 0 10px 0; // replace or edit with your styles
+    }
+
+	&__text { // .ajd_trending__text
+        // If you need spefifc stles to the text under the headline of each article
+    }
+
+    &__btn { // .ajd_trending__btn
+        // normally the read more or learn more link
+        .ajd_trending__a:hover &,
+        .ajd_trending__a:focus & {
+            // Styles so that when the trending article has been hovered over the button can light up
+            background: yellow; // replace or edit with your styles
+        }
+    }
+}
+
+
+
+
+
+
+
+// ===========================================
+// Parallax image - Featured image
+// ===========================================
+
+.ajd_image {
+	// Set image as a background image in HTML
+	width: 100%;
+	// Create the parallax scrolling effect
+	// Set a specific height
+	height: 150px;
+	background-attachment: fixed;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+
+
+
+
+
+
+
+// ===========================================
+// Rewards layout
+// ===========================================
+.ajd_rewards {
+  border-bottom: none;
+
+	&__ul { // .ajd_rewards__ul
+        @extend %list-reset;
+        width: 100%;
+        @include flexbox;
+        @include flexbox-center;
+    }
+
+    &__li { // .ajd_rewards__li
+        @include flexbox-auto;
+        padding: 10px 40px;
+
+        &:not(:last-of-type) {
+          margin-bottom: 20px;
+        }
+
+        @include breakpoint($mid-small) {
+            // breaks to two columns
+            width: 50%;
+        }
+
+        @include breakpoint(1000px) {
+            // breaks to three columns
+            width: 25%;
+        }
+
+        .js & {
+            opacity: 0;
+            transition: opacity 1s ease;
+        }
+
+        &.actived-once {
+            // If you want to active this ever time you change "actived-once" to just "active"
+            -webkit-animation: popin 1s forwards;
+            animation: popin 1s forwards;
+            opacity: 1;
+        }
+    }
+
+    &__ico { // .ajd_rewards__ico
+        width: 64px; // replace or edit with your styles
+        height: 64px; // replace or edit with your styles
+        display: block;
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+        margin: 0 auto 25px;
+    }
+
+    &__title {
+      font-size: 16px;
+      color: #222222;
+      font-weight: $weight-medium;
+      text-align: center;
+      margin-bottom: 15px;
+    }
+
+    &__description {
+      font-size: 14px;
+      line-height: 1.7;
+      text-align: center;
+    }
+}
+
+
+
+
+
+// ===========================================
+// ATS Job Description
+// ===========================================
+.ajd_job-details {
+    // Responsiblities section
+    border-bottom: none;
+    padding-bottom: 0;
+    &__ats-description { // .ajd_job-details__ats-description
+        // by default there is already styles that hit .ats-description
+        // this is just another way to target that section but only for AJD pages
+
+        * {
+          color: #555555 !important;
+        }
+
+        p, div, span, font, li{
+            font-family: 'interstate';
+            font-size: 15px !important;
+            margin-left: 0 !important;
+            margin-right: 0 !important;
+            text-indent: 0 !important;
+            line-height: 1.7 !important;
+            @include breakpoint($end-small) {
+              font-size: 16px !important;
+            }
+
+            a {
+              color: #0645AD !important;
+            }
+        }
+    }
+}
+
+
+// END  Advanced Job Details (AJD) Template
